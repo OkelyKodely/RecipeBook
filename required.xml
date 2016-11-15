@@ -1,0 +1,587 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Item>
+    <key>Sashimi</key>
+    <value>
+Ingredients (5)
+
+    1 pound fresh, sashimi-quality fish, such as yellowfin tuna or salmon
+    2 teaspoons extra-virgin olive oil
+    4 teaspoons shiro dashi or regular Japanese soy sauce
+    2 teaspoons white sesame seeds
+    1/2 teaspoon thinly sliced chives
+
+Summary
+
+Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+
+What to buy: Sashimi is all about the fish; with so few ingredients it’s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+
+This recipe was featured as part of our no-cook story.
+Adapted from Wayne Nish
+Instructions
+
+    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.
+    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it’s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
+    </value>
+  </Item>
+  <Item>
+    <key>werrweq</key>
+    <value>wewre</value>
+  </Item>
+  <Item>
+    <key>zxcvvcxz</key>
+    <value>zxcdsffads</value>
+  </Item>
+  <Item>
+    <key>dasfsdaf l sdaf ksdafljksadlsda ds afasdkfdsa sdfajfksd a dsf fdskasdfjkfsdkjfdsallkfsa sdfa  afsd d sfa fdsa fdsa  lsafdlkjsadjsadl jsdfaksadlk</key>
+    <value>using System;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Drawing.Printing;
+using System.Collections.Generic;
+using System.Xml;
+using System.Xml.Serialization;
+using System.IO;
+using WindowsFormsApplication2;
+
+public class RecipeBook
+{
+    private Form mainForm = new Form();
+    private Panel leftPanel = new Panel();
+    private Panel rightPanel = new Panel();
+    private ListBox recipeList = new ListBox();
+    private TextBox tb1 = new TextBox();
+    private TextBox tb = new TextBox();
+    private LList hashtable = new LList();
+    private Label theContent = new Label();
+    private ComboBox printList = new ComboBox();
+    private bool isStarting = true;
+    private int selectedIndex = -1;
+
+    public RecipeBook()
+    {
+        splashForm.SetBounds(0, 0, 400, 400);
+        splashForm.ControlBox = false;
+        splashForm.MaximizeBox = false;
+        splashForm.MinimizeBox = false;
+        splashForm.ShowIcon = false;
+        splashForm.StartPosition = FormStartPosition.CenterScreen;
+        splashForm.FormBorderStyle = FormBorderStyle.None;
+        splashForm.MinimumSize = new Size(400, 400);
+        splashForm.MaximumSize = new Size(400, 400);
+        
+        Panel splashPanel = new Panel();
+        splashPanel.SetBounds(0, 0, 400, 400);
+        splashPanel.BackColor = Color.Transparent;
+
+        Size size = new Size(400, 400);
+        splashPanel.BackgroundImage = Image.FromFile("splash.jpg");
+
+        Bitmap bmp = new Bitmap(splashPanel.BackgroundImage, size);
+        splashPanel.BackgroundImage = bmp;
+
+        splashForm.Controls.Add(splashPanel);
+    }
+
+    public void ShowBook()
+    {
+        mainForm.SetBounds(0, 0, 1000, 600);
+        mainForm.Controls.Add(leftPanel);
+        mainForm.Controls.Add(rightPanel);
+
+        mainForm.Text = "RecipeBook";
+
+        mainForm.FormBorderStyle = FormBorderStyle.FixedSingle;
+        mainForm.MaximizeBox = false;
+
+        leftPanel.SetBounds(0, 0, 250, 600);
+        rightPanel.SetBounds(250, 0, 750, 600);
+
+        mainForm.Icon = new Icon("block.ico");
+
+        AddList();
+        selectedIndex = 0;
+        recipeList.SelectedIndex = -1;
+        rightPanel.Controls.Clear();
+        rightPanel.Controls.Add(DisplaySelectedText());
+
+        AddContentViewBg();
+        AddButtons();
+    }
+
+    private void AddContentViewBg()
+    {
+        Size size = new Size(600, 600);
+        rightPanel.BackgroundImage = Image.FromFile(@"cherries.jpg");
+
+        Bitmap bmp = new Bitmap(rightPanel.BackgroundImage, size);
+        rightPanel.BackgroundImage = bmp;
+    }
+
+    private void AddButtons()
+    {
+        Button upButton = new Button();
+        upButton.Text = "Up";
+        upButton.SetBounds(600, 100, 100, 50);
+        rightPanel.Controls.Add(upButton);
+        upButton.Click += new EventHandler(MoveTextDown);
+
+        Button downButton = new Button();
+        downButton.Text = "Down";
+        downButton.SetBounds(600, 510, 100, 50);
+        rightPanel.Controls.Add(downButton);
+        downButton.Click += new EventHandler(MoveTextUp);
+
+        RadioButton deleteButton = new RadioButton();
+        deleteButton.SetBounds(660, 0, 80, 40);
+        deleteButton.Text = "Delete ?";
+        deleteButton.ForeColor = Color.White;
+        deleteButton.BackColor = Color.Transparent;
+        rightPanel.Controls.Add(deleteButton);
+        deleteButton.Click += new EventHandler(DeleteCurrentRecipe);
+
+        RadioButton printButton = new RadioButton();
+        printButton.SetBounds(600, 0, 80, 40);
+        printButton.Text = "Print ?";
+        printButton.ForeColor = Color.White;
+        printButton.BackColor = Color.Transparent;
+        rightPanel.Controls.Add(printButton);
+        printButton.Click += new EventHandler(PrintRecipe);
+
+        printList.SetBounds(600, 40, 130, 20);
+        foreach (String printer in PrinterSettings.InstalledPrinters)
+        {
+            printList.Items.Add(printer.ToString());
+        }
+        rightPanel.Controls.Add(printList);
+        mainForm.Hide();
+        mainForm.Show();
+    }
+
+    private void PrintRecipe(object sender, EventArgs e)
+    {
+        //Create a PrintDocument object
+        PrintDocument pd = new PrintDocument();
+
+        //Set PrinterName as the selected printer in the printers list
+        pd. PrinterSettings.PrinterName =
+        printList.SelectedItem.ToString();
+
+        //Add PrintPage event handler
+        pd.PrintPage += new PrintPageEventHandler(pd_PrintPage);
+
+        //Print the document
+        pd.Print();
+    }
+
+    public void pd_PrintPage(object sender, PrintPageEventArgs ev)
+    {
+        //Get the Graphics object
+        Graphics g = ev.Graphics;
+
+        //Create a font Arial with size 16
+        Font font = new Font("Arial", 16);
+
+        //Create a solid brush with black color
+        SolidBrush brush = new SolidBrush(Color.Black);
+
+        //Draw theContent.text;
+        g.DrawString(theContent.Text,
+        font, brush,
+        new Rectangle(20, 20, 200, 100));
+    }
+
+    private void DeleteCurrentRecipe(object sender, EventArgs e)
+    {
+        hashtable.Remove(hashtable[recipeList.SelectedIndex]);
+        recipeList.Items.Remove(recipeList.Items[recipeList.SelectedIndex]);
+        Serialize(null, null);
+
+        NewRecipe(null, null);
+        mainForm.Hide();
+        mainForm.Show();
+    }
+
+    private void MoveTextUp(object sender, EventArgs e)
+    {
+        Label content=theContent;
+        Console.WriteLine(content.Text);
+        content.SetBounds(0, content.Top - 20, 600, 6000);
+        rightPanel.Hide();
+        rightPanel.Show();
+    }
+
+    private void MoveTextDown(object sender, EventArgs e)
+    {
+        Label content = theContent;
+        Console.WriteLine(content.Text);
+        content.SetBounds(0, content.Top + 20, 600, 6000);
+        rightPanel.Hide();
+        rightPanel.Show();
+    }
+
+    private void AddList()
+    {
+        Deserialize(null, null);
+
+        Button neew = new Button();
+        neew.Text = "Make Recipe";
+        neew.SetBounds(0, 0, 250, 100);
+        leftPanel.Controls.Add(neew);
+        neew.Click += new EventHandler(NewRecipe);
+
+        recipeList.SetBounds(0, 100, 250, 500);
+        for (int i = 0; i &lt; hashtable.Count; i++)
+        {
+            recipeList.Items.Add(hashtable[i].key);
+        }
+        leftPanel.Controls.Add(recipeList);
+        recipeList.Click += new EventHandler(DisplayRecipe);
+    }
+
+    private void Deserialize(object sender, EventArgs e)
+    {
+        hashtable = null;
+        string path = "Test.txt";
+
+        XmlSerializer serializer = new XmlSerializer(typeof(LList));
+
+        StreamReader reader = new StreamReader(path);
+        hashtable = (LList)serializer.Deserialize(reader);
+        reader.Close();
+    }
+
+    private void NewRecipe(object sender, EventArgs e)
+    {
+        rightPanel.Controls.Clear();
+
+        tb1.SetBounds(0, 0, 600, 40);
+        
+        tb.Multiline = true;
+        tb.SetBounds(0, 80, 600, 300);
+
+        Button saveOrUpdate = new Button();
+        saveOrUpdate.Text = "Make Recipe";
+        saveOrUpdate.SetBounds(300, 420, 200, 40);
+        if (isStarting || 1==1)
+        {
+            saveOrUpdate.Click += new EventHandler(Serialize);
+            isStarting = false;
+        }
+
+        rightPanel.Controls.Add(saveOrUpdate);
+        rightPanel.Controls.Add(tb1);
+        rightPanel.Controls.Add(tb);
+    }
+
+    private void Serialize(object sender, EventArgs e)
+    {
+        const string fileName = "Test.txt";
+        recipeList.Items.Clear();
+        if (sender != null)
+        {
+            hashtable.Add(new Item(tb1.Text, tb.Text));
+        }
+        for (int i = 0; i &lt; hashtable.Count; i++)
+        {
+            recipeList.Items.Add(hashtable[i].key);
+        }
+        SerializeCollection(fileName, hashtable);
+        mainForm.Hide();
+        mainForm.Show();
+    }
+
+    public void SerializeCollection&lt;T&gt;(string fullFileName, IEnumerable&lt;T&gt; items)
+    {
+        var writer = new XmlSerializer(items.GetType());
+        var file = new StreamWriter(fullFileName);
+        writer.Serialize(file, items);
+        file.Close();
+        writer = null;
+    }
+
+    private void DisplayRecipe(object sender, EventArgs e)
+    {
+        selectedIndex = recipeList.SelectedIndex;
+
+        rightPanel.Controls.Clear();
+        AddButtons();
+        rightPanel.Controls.Add(DisplaySelectedText());
+    }
+
+    private Label DisplaySelectedText()
+    {
+        if (selectedIndex != -1)
+        {
+            Label lbl = new Label();
+            lbl.ForeColor = Color.AntiqueWhite;
+            lbl.BackColor = Color.Transparent;
+            lbl.SetBounds(0, 0, 600, 6000);
+            if(selectedIndex &gt; -1 &amp;&amp; selectedIndex &lt; recipeList.Items.Count)
+                lbl.Text = recipeList.Items[selectedIndex] + "\n\n" + hashtable[selectedIndex].value;
+            lbl.Font = new Font("arial", 20);
+
+            theContent = lbl;
+
+            return theContent;
+        }
+        else
+        {
+            Label lbl = new Label();
+            lbl.BackColor = Color.Transparent;
+
+            theContent = lbl;
+
+            return theContent;
+        }
+    }
+
+    private Form splashForm = new Form();
+
+    public static void Main()
+    {
+        RecipeBook recipeBook = new RecipeBook();
+        recipeBook.splashForm.Show();
+        new System.Threading.ManualResetEvent(false).WaitOne(2000);
+        recipeBook.splashForm.Close();
+        recipeBook.ShowBook();
+        recipeBook.mainForm.Show();
+        Application.Run(recipeBook.mainForm);
+    }
+
+    public XmlWriter WriterFileStream { get; set; }
+}</value>
+  </Item>
+  <Item>
+    <key>Boilermaker Tailgate Chili</key>
+    <value>    2 pounds ground beef chuck
+    1 pound bulk Italian sausage
+    3 (15 ounce) cans chili beans, drained
+    1 (15 ounce) can chili beans in spicy sauce
+    2 (28 ounce) cans diced tomatoes with juice
+    1 (6 ounce) can tomato paste
+    1 large yellow onion, chopped
+    3 stalks celery, chopped
+    1 green bell pepper, seeded and chopped
+    1 red bell pepper, seeded and chopped
+    2 green chile peppers, seeded and chopped
+    1 tablespoon bacon bits
+    4 cubes beef bouillon
+    1/2 cup beer
+
+    1/4 cup chili powder
+    1 tablespoon Worcestershire sauce
+    1 tablespoon minced garlic
+    1 tablespoon dried oregano
+    2 teaspoons ground cumin
+    2 teaspoons hot pepper sauce (e.g. Tabasco™)
+    1 teaspoon dried basil
+    1 teaspoon salt
+    1 teaspoon ground black pepper
+    1 teaspoon cayenne pepper
+    1 teaspoon paprika
+    1 teaspoon white sugar
+
+    Market Pantry Granulated Sugar - 4lbs
+    SALE: $1.89
+    SEE DETAILS
+    ADVERTISEMENT
+    1 (10.5 ounce) bag corn chips such as Fritos®
+    1 (8 ounce) package shredded Cheddar cheese
+
+    Kraft Cheddar Cheese Sharp, Fine Shredded
+    $2.49 - expires in 6 days
+
+    Add all ingredients to list
+
+    2 pounds ground beef chuck
+    1 pound bulk Italian sausage
+    3 (15 ounce) cans chili beans, drained
+    1 (15 ounce) can chili beans in spicy sauce
+    2 (28 ounce) cans diced tomatoes with juice
+    1 (6 ounce) can tomato paste
+    1 large yellow onion, chopped
+    3 stalks celery, chopped
+    1 green bell pepper, seeded and chopped
+    1 red bell pepper, seeded and chopped
+    2 green chile peppers, seeded and chopped
+    1 tablespoon bacon bits
+    4 cubes beef bouillon
+    1/2 cup beer
+
+    1/4 cup chili powder
+    1 tablespoon Worcestershire sauce
+    1 tablespoon minced garlic
+    1 tablespoon dried oregano
+    2 teaspoons ground cumin
+    2 teaspoons hot pepper sauce (e.g. Tabasco™)
+    1 teaspoon dried basil
+    1 teaspoon salt
+    1 teaspoon ground black pepper
+    1 teaspoon cayenne pepper
+    1 teaspoon paprika
+    1 teaspoon white sugar
+
+    Market Pantry Granulated Sugar - 4lbs
+    SALE: $1.89
+    SEE DETAILS
+    ADVERTISEMENT
+    1 (10.5 ounce) bag corn chips such as Fritos®
+    1 (8 ounce) package shredded Cheddar cheese
+
+Directions
+Print
+
+    Prep
+    30 m
+
+    Cook
+    2 h
+
+    Ready In
+    2 h 30 m
+
+    Heat a large stock pot over medium-high heat. Crumble the ground chuck and sausage into the hot pan, and cook until evenly browned. Drain off excess grease.
+    Pour in the chili beans, spicy chili beans, diced tomatoes and tomato paste. Add the onion, celery, green and red bell peppers, chile peppers, bacon bits, bouillon, and beer. Season with chili powder, Worcestershire sauce, garlic, oregano, cumin, hot pepper sauce, basil, salt, pepper, cayenne, paprika, and sugar. Stir to blend, then cover and simmer over low heat for at least 2 hours, stirring occasionally.
+    After 2 hours, taste, and adjust salt, pepper, and chili powder if necessary. The longer the chili simmers, the better it will taste. Remove from heat and serve, or refrigerate, and serve the next day.
+    To serve, ladle into bowls, and top with corn chips and shredded Cheddar cheese.
+</value>
+  </Item>
+  <Item>
+    <key>Regular soy sauce</key>
+    <value>
+Ingredients (5)
+
+    1 pound fresh, sashimi-quality fish, such as yellowfin tuna or salmon
+    2 teaspoons extra-virgin olive oil
+    4 teaspoons shiro dashi or regular Japanese soy sauce
+    2 teaspoons white sesame seeds
+    1/2 teaspoon thinly sliced chives
+
+Summary
+
+Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+
+What to buy: Sashimi is all about the fish; with so few ingredients it’s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+
+This recipe was featured as part of our no-cook story.
+Adapted from Wayne Nish
+Instructions
+
+    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.
+    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it’s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.</value>
+  </Item>
+  <Item>
+    <key>sdfasdaf</key>
+    <value>sdfa
+
+afsd</value>
+  </Item>
+  <Item>
+    <key>safdfsda</key>
+    <value>Regular soy sauce
+
+
+
+asdf</value>
+  </Item>
+  <Item>
+    <key>sashi</key>
+    <value>
+
+Ingredients (5)
+
+
+
+    1 pound fresh, sashimi-quality fish, such as yellowfin tuna or salmon
+
+    2 teaspoons extra-virgin olive oil
+
+    4 teaspoons shiro dashi or regular Japanese soy sauce
+
+    2 teaspoons white sesame seeds
+
+    1/2 teaspoon thinly sliced chives
+
+
+
+Summary
+
+
+
+Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+
+
+
+What to buy: Sashimi is all about the fish; with so few ingredients it’s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+
+
+
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+
+
+
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+
+
+
+This recipe was featured as part of our no-cook story.
+
+Adapted from Wayne Nish
+
+Instructions
+
+
+
+    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.
+
+    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+
+
+
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it’s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.</value>
+  </Item>
+  <Item>
+    <key>Sashimi</key>
+    <value>
+Ingredients (5)
+
+    1 pound fresh, sashimi-quality fish, such as yellowfin tuna or salmon
+    2 teaspoons extra-virgin olive oil
+    4 teaspoons shiro dashi or regular Japanese soy sauce
+    2 teaspoons white sesame seeds
+    1/2 teaspoon thinly sliced chives
+
+Summary
+
+Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+
+What to buy: Sashimi is all about the fish; with so few ingredients it’s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+
+This recipe was featured as part of our no-cook story.
+Adapted from Wayne Nish
+Instructions
+
+    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.
+    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it’s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.</value>
+  </Item>
+</ArrayOfItem>
