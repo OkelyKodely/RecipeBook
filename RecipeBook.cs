@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
+using System.Drawing.Printing;
 
 public class RecipeBook
 {
@@ -16,7 +17,7 @@ public class RecipeBook
     
     private Panel rightPanel = new Panel();
     
-    private ListBox recipeList = new ListBox();
+    private ComboBox recipeList = new ComboBox();
     
     private TextBox tb1 = new TextBox();
     
@@ -35,16 +36,43 @@ public class RecipeBook
     private Button downButton = new Button();
 
     private Button printButton = new Button();
-    
+
+    private Button printAllButton = new Button();
+
+    private Button printPdfButton = new Button();
+
     private Form splashForm = new Form();
     
     private PrintManager printManager = null;
+
+    private PrintManager printAllManager = null;
+
+    private PrintManager printPdfManager = null;    
     
     private Label selectRecipe = new Label();
 
     public RecipeBook()
     {
         printManager = new PrintManager(printButton, printList, theContent.Text);
+
+        ComboBox pl1 = new ComboBox();
+        ComboBox pl2 = new ComboBox();
+        string allContent = "";
+        OpenRecipesFile(null, null);
+        
+        for (int i = 0; i < recipes.Count; i++)
+        {
+            allContent += "Recipe Book___________\n\n" + recipes[i].key + "\n\n" + recipes[i].value + "\n\n\n";
+        }
+        printAllManager = new PrintManager(printAllButton, pl1, allContent);
+        printPdfManager = new PrintManager(printPdfButton, pl2, allContent);
+        pl2.Items.Clear();
+        pl2.Items.Add("Microsoft Print To PDF");
+        pl1.SetBounds(0, 250, 200, 20);
+        pl2.SetBounds(0, 400, 200, 20);
+
+        leftPanel.Controls.Add(pl1);
+        leftPanel.Controls.Add(pl2);
 
         splashForm.SetBounds(0, 0, 400, 400);
 
@@ -62,6 +90,8 @@ public class RecipeBook
         Panel splashPanel = new Panel();
         splashPanel.SetBounds(0, 0, 400, 400);
         splashPanel.BackColor = Color.Transparent;
+
+        recipeList.MaxDropDownItems = 5;
 
         Size size = new Size(400, 400);
         splashPanel.BackgroundImage = Image.FromFile("splash.jpg");
@@ -109,6 +139,21 @@ public class RecipeBook
 
     private void AddButtons()
     {
+        printAllButton.SetBounds(0, 300, 80, 40);
+        printAllButton.Text = "Print All";
+        printAllButton.ForeColor = Color.Black;
+        printAllButton.BackColor = Color.Transparent;
+
+        leftPanel.Controls.Add(printAllButton);
+
+        printPdfButton.SetBounds(0, 450, 80, 40);
+        printPdfButton.Text = "Print Pdf";
+        printPdfButton.ForeColor = Color.Black;
+        printPdfButton.BackColor = Color.Transparent;
+
+        leftPanel.Controls.Add(printPdfButton);
+
+        
         upButton.Text = "Up";
         upButton.SetBounds(604, 170, 44, 24);
         upButton.Click += new EventHandler(MoveTextDown);
@@ -217,8 +262,8 @@ public class RecipeBook
 
         leftPanel.Controls.Add(recipeList);
         
-        recipeList.Click += new EventHandler(DisplayRecipe);
-        recipeList.ScrollAlwaysVisible = true;
+        recipeList.SelectedIndexChanged += new EventHandler(DisplayRecipe);
+        ///recipeList.ScrollAlwaysVisible = true;
 
         recipeList.SetBounds(0, 100, 200, 500);
         leftPanel.AutoScroll = true;
@@ -227,6 +272,10 @@ public class RecipeBook
     private void OpenRecipesFile(object sender, EventArgs e)
     {
         recipes = serializer.Deserialize();
+        for (int i = 0; i < recipes.Count; i++)
+        {
+            recipes[i].value = recipes[i].value.Replace("\n", Environment.NewLine);
+        }
     }
 
     private void NewRecipe(object sender, EventArgs e)
