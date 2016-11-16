@@ -29,7 +29,12 @@ Instructions
     2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
 
 Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it’s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
-    </value>
+    
+
+hello
+
+world! ~
+ x.x</value>
   </Item>
   <Item>
     <key>source</key>
@@ -483,5 +488,39 @@ public class RecipeBook
         Application.Run(recipeBook.mainForm);
     }
 }</value>
+  </Item>
+  <Item>
+    <key>afdssad</key>
+    <value>sadf</value>
+  </Item>
+  <Item>
+    <key>afds</key>
+    <value> fadsafds</value>
+  </Item>
+  <Item>
+    <key>1abc</key>
+    <value>eqwsadfsdfasadf
+sadf
+sadf
+sdfa
+sdfa
+fs
+da</value>
+  </Item>
+  <Item>
+    <key>2424</key>
+    <value>dasffads</value>
+  </Item>
+  <Item>
+    <key>Kale soup (caldo verde)</key>
+    <value>One of my earliest food memories is this Portuguese soup, which is also called caldo verde because of its green color. My mom always made it for me when I was growing up. I’ve experienced many versions of this dish and enjoyed it at plenty of Portuguese feast-day celebrations. My recipe for it has evolved over time, particularly after some recent trips to Portugal—I even made it for Top Chef contestants last season—but I often think of my mom’s recipe. It’s a simple and awesome dish I cook at least once a week. (Photo via Splendid Table)</value>
+  </Item>
+  <Item>
+    <key>Quail Milton</key>
+    <value>I can truly say that this dish made my career. When opening Emeril’s, it was a huge challenge getting the appropriate permits. I had an appointment at City Hall to see the councilman in my district, Milton, and got word he was a fan of quail. So, I cooked up this dish of stuffed quail with mushrooms, Andouille, and a Port wine sauce, and walked into his office with it. Needless to say, it got me what I needed. I still enjoy recreating this dish. It’s a combination of flavors that always come together beautifully. (Photo: fleurdelicious-nola.com)</value>
+  </Item>
+  <Item>
+    <key>asdf sadsadf</key>
+    <value>dsfasdaf asd</value>
   </Item>
 </ArrayOfItem>
