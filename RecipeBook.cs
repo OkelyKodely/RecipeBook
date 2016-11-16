@@ -34,9 +34,7 @@ public class RecipeBook
 
     private Button downButton = new Button();
 
-    private RadioButton deleteButton = new RadioButton();
-
-    private RadioButton printButton = new RadioButton();
+    private Button printButton = new Button();
     
     private Form splashForm = new Form();
     
@@ -112,27 +110,19 @@ public class RecipeBook
     private void AddButtons()
     {
         upButton.Text = "Up";
-        upButton.SetBounds(604, 70, 44, 24);
+        upButton.SetBounds(604, 170, 44, 24);
         upButton.Click += new EventHandler(MoveTextDown);
 
         rightPanel.Controls.Add(upButton);
 
         downButton.Text = "Down";
-        downButton.SetBounds(650, 70, 44, 24);
+        downButton.SetBounds(650, 170, 44, 24);
         downButton.Click += new EventHandler(MoveTextUp);
 
         rightPanel.Controls.Add(downButton);
         
-        deleteButton.SetBounds(664, 0, 80, 40);
-        deleteButton.Text = "Erase?";
-        deleteButton.ForeColor = Color.Black;
-        deleteButton.BackColor = Color.Transparent;
-        deleteButton.Click += new EventHandler(DeleteCurrentRecipe);
-
-        rightPanel.Controls.Add(deleteButton);
-        
-        printButton.SetBounds(600, 0, 80, 40);
-        printButton.Text = "Print? or ";
+        printButton.SetBounds(600, 100, 80, 40);
+        printButton.Text = "Print";
         printButton.ForeColor = Color.Black;
         printButton.BackColor = Color.Transparent;
         
@@ -166,41 +156,26 @@ public class RecipeBook
         tb.Text = recipes[selectedIndex].value;
 
     }
-    int ad = 1;
+
     private void DeleteCurrentRecipe(object sender, EventArgs e)
     {
-        Console.WriteLine(selectedIndex);
-        try
-        {
-            if (ad <= 2)
-            {
-                ad++;
-                if (ad == 2)
-                {
-                    recipes.RemoveAt(selectedIndex);
-                    recipeList.Items.Remove(recipeList.Items[selectedIndex]);
+        recipes.RemoveAt(selectedIndex);
+        recipeList.Items.Remove(recipeList.Items[selectedIndex]);
 
-                    UpdateDatabase(null, null);
+        UpdateDatabase(null, null);
 
-                    NewRecipe(null, null);
+        selectedIndex = -1;
+        recipeList.SelectedIndex = -1;
 
-                    deleteButton.Checked = false;
+        DisplayRecipe(null, null);
 
-                    ad = 1;
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            ad = 1;
-        }
         mainForm.Hide();
         mainForm.Show();
     }
 
     private void MoveTextUp(object sender, EventArgs e)
     {
-        theContent.SetBounds(0, theContent.Top- 70, 600, 6000);
+        theContent.SetBounds(0, theContent.Top - 70, 600, 6000);
 
         rightPanel.Hide();
         
@@ -209,7 +184,7 @@ public class RecipeBook
 
     private void MoveTextDown(object sender, EventArgs e)
     {
-        theContent.SetBounds(0, theContent.Top+ 70, 600, 6000);
+        theContent.SetBounds(0, theContent.Top + 70, 600, 6000);
         
         rightPanel.Hide();
         
@@ -279,10 +254,10 @@ public class RecipeBook
         tb.Text = "";
         tb1.Text = "";
 
-        tb1.ForeColor = Color.White;
-        tb.ForeColor = Color.White;
-        tb1.BackColor = Color.Black;
-        tb.BackColor = Color.Black;
+        tb1.ForeColor = Color.Gray;
+        tb.ForeColor = Color.Gray;
+        tb1.BackColor = Color.Azure;
+        tb.BackColor = Color.Aquamarine;
 
         Button saveOrUpdate = new Button();
         saveOrUpdate.SetBounds(300, 420, 50, 20);
@@ -327,6 +302,10 @@ public class RecipeBook
         mainForm.Hide();
 
         mainForm.Show();
+
+        recipeList.SelectedIndex = selectedIndex;
+
+        DisplayRecipe(sender, null);
     }
 
     private void UpdateDatabase(object sender, EventArgs e)
@@ -348,6 +327,12 @@ public class RecipeBook
         mainForm.Hide();
         
         mainForm.Show();
+
+        selectedIndex = recipes.Count - 1;
+
+        recipeList.SelectedIndex = selectedIndex;
+
+        DisplayRecipe(sender, null);
     }
 
     private void DisplayRecipe(object sender, EventArgs e)
@@ -391,7 +376,13 @@ public class RecipeBook
                 dynamicTextBox.Text = recipeList.Items[selectedIndex] + "\n\n" + recipes[selectedIndex].value;
             }
 
-            
+
+            Button delBtn = new Button();
+            delBtn.Text = "Delete";
+            delBtn.SetBounds(600, 370, 60, 20);
+            delBtn.Click += new EventHandler(DeleteCurrentRecipe);
+            rightPanel.Controls.Add(delBtn);
+
             theContent = dynamicTextBox;
 
             return dynamicTextBox;

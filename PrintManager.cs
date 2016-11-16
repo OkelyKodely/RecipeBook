@@ -9,7 +9,7 @@ public class PrintManager
     
     private String theContent = "";
 
-    public PrintManager(RadioButton printButton, ComboBox printList, string theContent)
+    public PrintManager(Button printButton, ComboBox printList, string theContent)
     {
         this.printList = printList;
     
