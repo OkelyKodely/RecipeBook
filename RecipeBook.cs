@@ -8,7 +8,7 @@ using System.IO;
 
 public class RecipeBook
 {
-    private int selectedIndex = 0;
+    private int selectedIndex = -1;
 
     private Form mainForm = new Form();
     
@@ -324,9 +324,33 @@ public class RecipeBook
         }
         else
         {
-            Label nothingTextBox = new Label();
+            Label dynamicTextBox = new Label();
+
+            dynamicTextBox.BackColor = Color.Transparent;
+
+            dynamicTextBox.ForeColor = Color.Black;
+
+            dynamicTextBox.Font = new Font("Georgia", 36);
+
+            dynamicTextBox.SetBounds(0, 0, 600, 6000);
+
+            dynamicTextBox.Text = "Select Recipe From Left Side";
             
-            theContent = nothingTextBox;
+            theContent = dynamicTextBox;
+
+            Panel selectRecipePanel = new Panel();
+
+            selectRecipePanel.SetBounds(100, 100, 400, 400);
+
+            Size size = new Size(400, 400);
+
+            selectRecipePanel.BackgroundImage = Image.FromFile(@"splash.jpg");
+            
+            Bitmap bmp = new Bitmap(selectRecipePanel.BackgroundImage, size);
+            
+            selectRecipePanel.BackgroundImage = bmp;
+
+            rightPanel.Controls.Add(selectRecipePanel);
             
             return theContent;
         }
