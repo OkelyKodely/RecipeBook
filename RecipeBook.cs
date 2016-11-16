@@ -138,6 +138,13 @@ public class RecipeBook
         
         rightPanel.Controls.Add(printButton);
 
+        Button editButton = new Button();
+        editButton.SetBounds(600, 300, 80, 40);
+        editButton.Text = "Edit";
+        editButton.Click += new EventHandler(EditCurrentRecipe);
+
+        rightPanel.Controls.Add(editButton);
+
 
         
         rightPanel.Controls.Add(printList);
@@ -149,15 +156,44 @@ public class RecipeBook
         mainForm.Show();
     }
 
+    private void EditCurrentRecipe(object sender, EventArgs e)
+    {
+
+        NewRecipe(sender, null);
+
+        tb1.Text = recipes[selectedIndex].key;
+
+        tb.Text = recipes[selectedIndex].value;
+
+    }
+    int ad = 1;
     private void DeleteCurrentRecipe(object sender, EventArgs e)
     {
-        recipes.Remove(recipes[recipeList.SelectedIndex]);
-        recipeList.Items.Remove(recipeList.Items[recipeList.SelectedIndex]);
-        
-        UpdateDatabase(null, null);
+        Console.WriteLine(selectedIndex);
+        try
+        {
+            if (ad <= 2)
+            {
+                ad++;
+                if (ad == 2)
+                {
+                    recipes.RemoveAt(selectedIndex);
+                    recipeList.Items.Remove(recipeList.Items[selectedIndex]);
 
-        NewRecipe(null, null);
-        
+                    UpdateDatabase(null, null);
+
+                    NewRecipe(null, null);
+
+                    deleteButton.Checked = false;
+
+                    ad = 1;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            ad = 1;
+        }
         mainForm.Hide();
         mainForm.Show();
     }
@@ -193,6 +229,7 @@ public class RecipeBook
 
         selectRecipe.SetBounds(0, 70, 80, 20);
         selectRecipe.Text = "Select Recipe";
+        selectRecipe.Click += new EventHandler(DisplayRecipe);
         
         leftPanel.Controls.Add(selectRecipe);
 
@@ -248,17 +285,48 @@ public class RecipeBook
         tb.BackColor = Color.Black;
 
         Button saveOrUpdate = new Button();
-        saveOrUpdate.Text = "SAVE";
         saveOrUpdate.SetBounds(300, 420, 50, 20);
-        saveOrUpdate.Click += new EventHandler(UpdateDatabase);
-
-
+        saveOrUpdate.Text = "SAVE";
+        if (sender != null)
+        {
+            if (((Button)sender).Text.Equals("Edit"))
+            {
+                saveOrUpdate.Text = "EDIT";
+                saveOrUpdate.Click += new EventHandler(EditDatabase);
+            }
+            else
+            {
+                saveOrUpdate.Click += new EventHandler(UpdateDatabase);
+            }
+        }
         
         rightPanel.Controls.Add(saveOrUpdate);
         
         rightPanel.Controls.Add(tb1);
         
         rightPanel.Controls.Add(tb);
+    }
+
+    private void EditDatabase(object sender, EventArgs e)
+    {
+        recipeList.Items.Clear();
+
+        if (sender != null)
+        {
+            recipes[selectedIndex].key = tb1.Text;
+            recipes[selectedIndex].value = tb.Text;
+        }
+
+        for (int i = 0; i < recipes.Count; i++)
+        {
+            recipeList.Items.Add(recipes[i].key);
+        }
+
+        serializer.Serialize(recipes);
+
+        mainForm.Hide();
+
+        mainForm.Show();
     }
 
     private void UpdateDatabase(object sender, EventArgs e)
@@ -286,6 +354,13 @@ public class RecipeBook
     {
 
         selectedIndex = recipeList.SelectedIndex;
+
+
+        if (sender == selectRecipe)
+        {
+            selectedIndex = -1;
+            recipeList.SelectedIndex = -1;
+        }
 
 
         rightPanel.Controls.Clear();
