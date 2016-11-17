@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
-using System.Drawing.Printing;
+using System.Text;
 
 public class RecipeBook
 {
@@ -26,8 +26,14 @@ public class RecipeBook
     private LList recipes = new LList();
     
     private Label theContent = new Label();
+
+    private Label allContent = new Label(); 
     
     private ComboBox printList = new ComboBox();
+
+    private ComboBox pl1 = new ComboBox();
+    
+    private ComboBox pl2 = new ComboBox();
     
     private Serializer serializer = new Serializer();
 
@@ -47,33 +53,25 @@ public class RecipeBook
 
     private PrintManager printAllManager = null;
 
-    private PrintManager printPdfManager = null;    
+    private PrintManager printPdfManager = null;
     
     private Label selectRecipe = new Label();
-
+    
+    private String news = "";
+    
     public RecipeBook()
     {
-        printManager = new PrintManager(printButton, printList, theContent.Text);
-
-        ComboBox pl1 = new ComboBox();
-        ComboBox pl2 = new ComboBox();
-        string allContent = "";
         OpenRecipesFile(null, null);
-        
-        for (int i = 0; i < recipes.Count; i++)
-        {
-            allContent += "Recipe Book___________\n\n" + recipes[i].key + "\n\n" + recipes[i].value + "\n\n\n";
-        }
-        printAllManager = new PrintManager(printAllButton, pl1, allContent);
-        printPdfManager = new PrintManager(printPdfButton, pl2, allContent);
-        pl2.Items.Clear();
-        pl2.Items.Add("Microsoft Print To PDF");
+        UpdateDatabase(null, null);
+        DisplayRecipe(null, null);
         pl1.SetBounds(0, 250, 200, 20);
         pl2.SetBounds(0, 400, 200, 20);
-
         leftPanel.Controls.Add(pl1);
         leftPanel.Controls.Add(pl2);
+        pl2.Items.Clear();
+        pl2.Items.Add("Microsoft Print to PDF");
 
+        
         splashForm.SetBounds(0, 0, 400, 400);
 
         splashForm.ControlBox = false;
@@ -183,9 +181,10 @@ public class RecipeBook
 
         
         rightPanel.Controls.Add(printList);
-        
 
-        
+
+
+
         mainForm.Hide();
         
         mainForm.Show();
@@ -263,10 +262,13 @@ public class RecipeBook
         leftPanel.Controls.Add(recipeList);
         
         recipeList.SelectedIndexChanged += new EventHandler(DisplayRecipe);
-        ///recipeList.ScrollAlwaysVisible = true;
-
+    
         recipeList.SetBounds(0, 100, 200, 500);
         leftPanel.AutoScroll = true;
+
+        printList.SetBounds(600, 40, 130, 20);
+        pl1.SetBounds(0, 250, 200, 20);
+        pl2.SetBounds(0, 400, 200, 20);
     }
 
     private void OpenRecipesFile(object sender, EventArgs e)
@@ -355,6 +357,17 @@ public class RecipeBook
         recipeList.SelectedIndex = selectedIndex;
 
         DisplayRecipe(sender, null);
+
+        allContent.Text = "Recipe Book" + Environment.NewLine + "___________" + Environment.NewLine;
+        for (int i = 0; i < recipes.Count; i++)
+        {
+            allContent.Text += recipes[i].key + Environment.NewLine + recipes[i].value + Environment.NewLine;
+        }
+
+        printPdfManager = new PrintManager(printPdfButton, pl2, allContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
+
+        //        printManager = new PrintManager(printButton, printList, theContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
+        printAllManager = new PrintManager(printAllButton, pl1, allContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
     }
 
     private void UpdateDatabase(object sender, EventArgs e)
@@ -377,11 +390,22 @@ public class RecipeBook
         
         mainForm.Show();
 
-        selectedIndex = recipes.Count - 1;
+        selectedIndex = 0;// recipes.Count - 1;
 
         recipeList.SelectedIndex = selectedIndex;
 
         DisplayRecipe(sender, null);
+
+        allContent.Text = "Recipe Book" + Environment.NewLine + "___________" + Environment.NewLine;
+        for (int i = 0; i < recipes.Count; i++)
+        {
+            allContent.Text += recipes[i].key + Environment.NewLine + recipes[i].value + Environment.NewLine;
+        }
+
+        printPdfManager = new PrintManager(printPdfButton, pl2, allContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
+
+        //        printManager = new PrintManager(printButton, printList, theContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
+        printAllManager = new PrintManager(printAllButton, pl1, allContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
     }
 
     private void DisplayRecipe(object sender, EventArgs e)
@@ -425,7 +449,6 @@ public class RecipeBook
                 dynamicTextBox.Text = recipeList.Items[selectedIndex] + "\n\n" + recipes[selectedIndex].value;
             }
 
-
             Button delBtn = new Button();
             delBtn.Text = "Delete";
             delBtn.SetBounds(600, 370, 60, 20);
@@ -434,7 +457,9 @@ public class RecipeBook
 
             theContent = dynamicTextBox;
 
-            return dynamicTextBox;
+            printManager = new PrintManager(printButton, printList, theContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
+
+            return theContent;
 
         }
         else
