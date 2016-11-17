@@ -12,66 +12,33 @@ public class RecipeBook
     private int selectedIndex = -1;
 
     private Form mainForm = new Form();
-    
+
     private Panel leftPanel = new Panel();
-    
+
     private Panel rightPanel = new Panel();
-    
+
     private ComboBox recipeList = new ComboBox();
-    
+
     private TextBox tb1 = new TextBox();
-    
+
     private TextBox tb = new TextBox();
-    
+
     private LList recipes = new LList();
-    
+
     private Label theContent = new Label();
 
-    private Label allContent = new Label(); 
-    
-    private ComboBox printList = new ComboBox();
-
-    private ComboBox pl1 = new ComboBox();
-    
-    private ComboBox pl2 = new ComboBox();
-    
     private Serializer serializer = new Serializer();
 
     private Button upButton = new Button();
 
     private Button downButton = new Button();
 
-    private Button printButton = new Button();
-
-    private Button printAllButton = new Button();
-
-    private Button printPdfButton = new Button();
-
     private Form splashForm = new Form();
-    
-    private PrintManager printManager = null;
 
-    private PrintManager printAllManager = null;
-
-    private PrintManager printPdfManager = null;
-    
     private Label selectRecipe = new Label();
-    
-    private String news = "";
-    
+
     public RecipeBook()
     {
-        OpenRecipesFile(null, null);
-        UpdateDatabase(null, null);
-        DisplayRecipe(null, null);
-        pl1.SetBounds(0, 250, 200, 20);
-        pl2.SetBounds(0, 400, 200, 20);
-        leftPanel.Controls.Add(pl1);
-        leftPanel.Controls.Add(pl2);
-        pl2.Items.Clear();
-        pl2.Items.Add("Microsoft Print to PDF");
-
-        
         splashForm.SetBounds(0, 0, 400, 400);
 
         splashForm.ControlBox = false;
@@ -81,10 +48,10 @@ public class RecipeBook
 
         splashForm.StartPosition = FormStartPosition.CenterScreen;
         splashForm.FormBorderStyle = FormBorderStyle.None;
-        
+
         splashForm.MinimumSize = new Size(400, 400);
         splashForm.MaximumSize = new Size(400, 400);
-        
+
         Panel splashPanel = new Panel();
         splashPanel.SetBounds(0, 0, 400, 400);
         splashPanel.BackColor = Color.Transparent;
@@ -123,7 +90,7 @@ public class RecipeBook
         rightPanel.Controls.Add(DisplaySelectedText());
 
         AddContentViewBg();
-        
+
         AddButtons();
     }
 
@@ -137,21 +104,6 @@ public class RecipeBook
 
     private void AddButtons()
     {
-        printAllButton.SetBounds(0, 300, 80, 40);
-        printAllButton.Text = "Print All";
-        printAllButton.ForeColor = Color.Black;
-        printAllButton.BackColor = Color.Transparent;
-
-        leftPanel.Controls.Add(printAllButton);
-
-        printPdfButton.SetBounds(0, 450, 80, 40);
-        printPdfButton.Text = "Print Pdf";
-        printPdfButton.ForeColor = Color.Black;
-        printPdfButton.BackColor = Color.Transparent;
-
-        leftPanel.Controls.Add(printPdfButton);
-
-        
         upButton.Text = "Up";
         upButton.SetBounds(604, 170, 44, 24);
         upButton.Click += new EventHandler(MoveTextDown);
@@ -163,13 +115,6 @@ public class RecipeBook
         downButton.Click += new EventHandler(MoveTextUp);
 
         rightPanel.Controls.Add(downButton);
-        
-        printButton.SetBounds(600, 100, 80, 40);
-        printButton.Text = "Print";
-        printButton.ForeColor = Color.Black;
-        printButton.BackColor = Color.Transparent;
-        
-        rightPanel.Controls.Add(printButton);
 
         Button editButton = new Button();
         editButton.SetBounds(600, 300, 80, 40);
@@ -179,14 +124,8 @@ public class RecipeBook
         rightPanel.Controls.Add(editButton);
 
 
-        
-        rightPanel.Controls.Add(printList);
-
-
-
-
         mainForm.Hide();
-        
+
         mainForm.Show();
     }
 
@@ -222,16 +161,16 @@ public class RecipeBook
         theContent.SetBounds(0, theContent.Top - 70, 600, 6000);
 
         rightPanel.Hide();
-        
+
         rightPanel.Show();
     }
 
     private void MoveTextDown(object sender, EventArgs e)
     {
         theContent.SetBounds(0, theContent.Top + 70, 600, 6000);
-        
+
         rightPanel.Hide();
-        
+
         rightPanel.Show();
     }
 
@@ -249,7 +188,7 @@ public class RecipeBook
         selectRecipe.SetBounds(0, 70, 80, 20);
         selectRecipe.Text = "Select Recipe";
         selectRecipe.Click += new EventHandler(DisplayRecipe);
-        
+
         leftPanel.Controls.Add(selectRecipe);
 
         recipeList.SetBounds(0, 100, 250, 500);
@@ -260,15 +199,11 @@ public class RecipeBook
         }
 
         leftPanel.Controls.Add(recipeList);
-        
+
         recipeList.SelectedIndexChanged += new EventHandler(DisplayRecipe);
-    
+
         recipeList.SetBounds(0, 100, 200, 500);
         leftPanel.AutoScroll = true;
-
-        printList.SetBounds(600, 40, 130, 20);
-        pl1.SetBounds(0, 250, 200, 20);
-        pl2.SetBounds(0, 400, 200, 20);
     }
 
     private void OpenRecipesFile(object sender, EventArgs e)
@@ -297,7 +232,7 @@ public class RecipeBook
         cont.Text = "Recipe";
         cont.BackColor = Color.Transparent;
         cont.SetBounds(0, 65, 80, 25);
-        
+
         rightPanel.Controls.Add(cont);
 
         tb.Multiline = true;
@@ -325,11 +260,11 @@ public class RecipeBook
                 saveOrUpdate.Click += new EventHandler(UpdateDatabase);
             }
         }
-        
+
         rightPanel.Controls.Add(saveOrUpdate);
-        
+
         rightPanel.Controls.Add(tb1);
-        
+
         rightPanel.Controls.Add(tb);
     }
 
@@ -357,23 +292,12 @@ public class RecipeBook
         recipeList.SelectedIndex = selectedIndex;
 
         DisplayRecipe(sender, null);
-
-        allContent.Text = "Recipe Book" + Environment.NewLine + "___________" + Environment.NewLine;
-        for (int i = 0; i < recipes.Count; i++)
-        {
-            allContent.Text += recipes[i].key + Environment.NewLine + recipes[i].value + Environment.NewLine;
-        }
-
-        printPdfManager = new PrintManager(printPdfButton, pl2, allContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
-
-        //        printManager = new PrintManager(printButton, printList, theContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
-        printAllManager = new PrintManager(printAllButton, pl1, allContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
     }
 
     private void UpdateDatabase(object sender, EventArgs e)
     {
         recipeList.Items.Clear();
-        
+
         if (sender != null)
         {
             recipes.Add(new Item(tb1.Text, tb.Text));
@@ -385,9 +309,9 @@ public class RecipeBook
         }
 
         serializer.Serialize(recipes);
-        
+
         mainForm.Hide();
-        
+
         mainForm.Show();
 
         selectedIndex = 0;// recipes.Count - 1;
@@ -395,17 +319,6 @@ public class RecipeBook
         recipeList.SelectedIndex = selectedIndex;
 
         DisplayRecipe(sender, null);
-
-        allContent.Text = "Recipe Book" + Environment.NewLine + "___________" + Environment.NewLine;
-        for (int i = 0; i < recipes.Count; i++)
-        {
-            allContent.Text += recipes[i].key + Environment.NewLine + recipes[i].value + Environment.NewLine;
-        }
-
-        printPdfManager = new PrintManager(printPdfButton, pl2, allContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
-
-        //        printManager = new PrintManager(printButton, printList, theContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
-        printAllManager = new PrintManager(printAllButton, pl1, allContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
     }
 
     private void DisplayRecipe(object sender, EventArgs e)
@@ -424,7 +337,7 @@ public class RecipeBook
         rightPanel.Controls.Clear();
 
         AddButtons();
-        
+
         rightPanel.Controls.Add(DisplaySelectedText());
     }
 
@@ -432,19 +345,19 @@ public class RecipeBook
     {
         if (selectedIndex != -1)
         {
-            
+
             Label dynamicTextBox = new Label();
 
             dynamicTextBox.BackColor = Color.Transparent;
-            
+
             dynamicTextBox.ForeColor = Color.Black;
-            
+
             dynamicTextBox.Font = new Font("Georgia", 16);
-            
+
             dynamicTextBox.SetBounds(0, 0, 600, 6000);
 
-            
-            if (selectedIndex > -1 && selectedIndex < recipeList.Items.Count)
+
+            if (selectedIndex > -1 && selectedIndex < recipeList.Items.Count && selectedIndex < recipes.Count)
             {
                 dynamicTextBox.Text = recipeList.Items[selectedIndex] + "\n\n" + recipes[selectedIndex].value;
             }
@@ -456,8 +369,6 @@ public class RecipeBook
             rightPanel.Controls.Add(delBtn);
 
             theContent = dynamicTextBox;
-
-            printManager = new PrintManager(printButton, printList, theContent);//"!@#!#!@#!@#!@#!@#!$!#$!#$" + neews.ToString(0, neews.Length));
 
             return theContent;
 
@@ -475,7 +386,7 @@ public class RecipeBook
             dynamicTextBox.SetBounds(0, 0, 600, 6000);
 
             dynamicTextBox.Text = "Select Recipe From Left Side";
-            
+
             theContent = dynamicTextBox;
 
             Panel selectRecipePanel = new Panel();
@@ -485,13 +396,13 @@ public class RecipeBook
             Size size = new Size(400, 400);
 
             selectRecipePanel.BackgroundImage = Image.FromFile(@"splash.jpg");
-            
+
             Bitmap bmp = new Bitmap(selectRecipePanel.BackgroundImage, size);
-            
+
             selectRecipePanel.BackgroundImage = bmp;
 
             rightPanel.Controls.Add(selectRecipePanel);
-            
+
             return theContent;
         }
     }
@@ -499,17 +410,17 @@ public class RecipeBook
     public static void Main()
     {
         RecipeBook recipeBook = new RecipeBook();
-        
+
         recipeBook.splashForm.Show();
-        
+
         new System.Threading.ManualResetEvent(false).WaitOne(1250);
-        
+
         recipeBook.splashForm.Close();
 
         recipeBook.ShowBook();
-        
+
         recipeBook.mainForm.Show();
-        
+
         Application.Run(recipeBook.mainForm);
     }
 }
