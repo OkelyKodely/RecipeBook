@@ -2,18 +2,7 @@
 <ArrayOfItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Item>
     <key>Sashimi</key>
-    <value>
-Ingredients (5)
-
-    1 pound fresh, sashimi-quality fish, such as yellowfin tuna or salmon
-    2 teaspoons extra-virgin olive oil
-    4 teaspoons shiro dashi or regular Japanese soy sauce
-    2 teaspoons white sesame seeds
-    1/2 teaspoon thinly sliced chives
-
-Summary
-
-Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+    <value>Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
 
 What to buy: Sashimi is all about the fish; with so few ingredients it’s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
 
@@ -508,10 +497,6 @@ fs
 da</value>
   </Item>
   <Item>
-    <key>2424</key>
-    <value>dasffads</value>
-  </Item>
-  <Item>
     <key>Kale soup (caldo verde)</key>
     <value>One of my earliest food memories is this Portuguese soup, which is also called caldo verde because of its green color. My mom always made it for me when I was growing up. I’ve experienced many versions of this dish and enjoyed it at plenty of Portuguese feast-day celebrations. My recipe for it has evolved over time, particularly after some recent trips to Portugal—I even made it for Top Chef contestants last season—but I often think of my mom’s recipe. It’s a simple and awesome dish I cook at least once a week. (Photo via Splendid Table)</value>
   </Item>
@@ -522,5 +507,9 @@ da</value>
   <Item>
     <key>asdf sadsadf</key>
     <value>dsfasdaf asd</value>
+  </Item>
+  <Item>
+    <key>11212</key>
+    <value>adfs</value>
   </Item>
 </ArrayOfItem>
