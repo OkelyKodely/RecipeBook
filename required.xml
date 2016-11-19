@@ -4,7 +4,7 @@
     <key>Sashimi</key>
     <value>Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
 
-What to buy: Sashimi is all about the fish; with so few ingredients it’s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
 
 Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
 
@@ -17,7 +17,7 @@ Instructions
     1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.
     2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
 
-Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it’s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
     
 
 hello
@@ -26,483 +26,16 @@ world! ~
  x.</value>
   </Item>
   <Item>
-    <key>source</key>
-    <value>using System;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Collections.Generic;
-using System.Xml;
-using System.Xml.Serialization;
-using System.IO;
-
-public class RecipeBook
-{
-    private int selectedIndex = -1;
-
-    private Form mainForm = new Form();
-    
-    private Panel leftPanel = new Panel();
-    
-    private Panel rightPanel = new Panel();
-    
-    private ListBox recipeList = new ListBox();
-    
-    private TextBox tb1 = new TextBox();
-    
-    private TextBox tb = new TextBox();
-    
-    private LList recipes = new LList();
-    
-    private Label theContent = new Label();
-    
-    private ComboBox printList = new ComboBox();
-    
-    private Serializer serializer = new Serializer();
-
-    private Button upButton = new Button();
-
-    private Button downButton = new Button();
-
-    private RadioButton deleteButton = new RadioButton();
-
-    private RadioButton printButton = new RadioButton();
-    
-    private Form splashForm = new Form();
-    
-    private PrintManager printManager = null;
-    
-    private Label selectRecipe = new Label();
-
-    public RecipeBook()
-    {
-        printManager = new PrintManager(printButton, printList, theContent.Text);
-
-        splashForm.SetBounds(0, 0, 400, 400);
-
-        splashForm.ControlBox = false;
-        splashForm.MaximizeBox = false;
-        splashForm.MinimizeBox = false;
-        splashForm.ShowIcon = false;
-
-        splashForm.StartPosition = FormStartPosition.CenterScreen;
-        splashForm.FormBorderStyle = FormBorderStyle.None;
-        
-        splashForm.MinimumSize = new Size(400, 400);
-        splashForm.MaximumSize = new Size(400, 400);
-        
-        Panel splashPanel = new Panel();
-        splashPanel.SetBounds(0, 0, 400, 400);
-        splashPanel.BackColor = Color.Transparent;
-
-        Size size = new Size(400, 400);
-        splashPanel.BackgroundImage = Image.FromFile("splash.jpg");
-
-        Bitmap bmp = new Bitmap(splashPanel.BackgroundImage, size);
-        splashPanel.BackgroundImage = bmp;
-
-        splashForm.Controls.Add(splashPanel);
-    }
-
-    public void ShowBook()
-    {
-        mainForm.SetBounds(0, 0, 1000, 600);
-
-        mainForm.Controls.Add(leftPanel);
-        mainForm.Controls.Add(rightPanel);
-
-        mainForm.Text = "RecipeBook";
-
-        mainForm.FormBorderStyle = FormBorderStyle.FixedSingle;
-        mainForm.MaximizeBox = false;
-
-        leftPanel.SetBounds(0, 0, 250, 600);
-        rightPanel.SetBounds(250, 0, 750, 600);
-
-        mainForm.Icon = new Icon("block.ico");
-
-        AddList();
-
-        rightPanel.Controls.Clear();
-        rightPanel.Controls.Add(DisplaySelectedText());
-
-        AddContentViewBg();
-        
-        AddButtons();
-    }
-
-    private void AddContentViewBg()
-    {
-        Size size = new Size(600, 600);
-        rightPanel.BackgroundImage = Image.FromFile(@"bg.png");
-        Bitmap bmp = new Bitmap(rightPanel.BackgroundImage, size);
-        rightPanel.BackgroundImage = bmp;
-    }
-
-    private void AddButtons()
-    {
-        upButton.Text = "Up";
-        upButton.SetBounds(604, 70, 44, 24);
-        upButton.Click += new EventHandler(MoveTextDown);
-
-        rightPanel.Controls.Add(upButton);
-
-        downButton.Text = "Down";
-        downButton.SetBounds(650, 70, 44, 24);
-        downButton.Click += new EventHandler(MoveTextUp);
-
-        rightPanel.Controls.Add(downButton);
-        
-        deleteButton.SetBounds(664, 0, 80, 40);
-        deleteButton.Text = "Erase?";
-        deleteButton.ForeColor = Color.Black;
-        deleteButton.BackColor = Color.Transparent;
-        deleteButton.Click += new EventHandler(DeleteCurrentRecipe);
-
-        rightPanel.Controls.Add(deleteButton);
-        
-        printButton.SetBounds(600, 0, 80, 40);
-        printButton.Text = "Print? or ";
-        printButton.ForeColor = Color.Black;
-        printButton.BackColor = Color.Transparent;
-        
-        rightPanel.Controls.Add(printButton);
-
-        Button editButton = new Button();
-        editButton.SetBounds(600, 300, 80, 40);
-        editButton.Text = "Edit";
-        editButton.Click += new EventHandler(EditCurrentRecipe);
-
-        rightPanel.Controls.Add(editButton);
-
-
-        
-        rightPanel.Controls.Add(printList);
-        
-
-        
-        mainForm.Hide();
-        
-        mainForm.Show();
-    }
-
-    private void EditCurrentRecipe(object sender, EventArgs e)
-    {
-
-        NewRecipe(sender, null);
-
-        tb1.Text = recipes[selectedIndex].key;
-
-        tb.Text = recipes[selectedIndex].value;
-
-    }
-    int ad = 1;
-    private void DeleteCurrentRecipe(object sender, EventArgs e)
-    {
-        Console.WriteLine(selectedIndex);
-        try
-        {
-            if (ad &lt;= 2)
-            {
-                ad++;
-                if (ad == 2)
-                {
-                    recipes.RemoveAt(selectedIndex);
-                    recipeList.Items.Remove(recipeList.Items[selectedIndex]);
-
-                    UpdateDatabase(null, null);
-
-                    NewRecipe(null, null);
-
-                    deleteButton.Checked = false;
-
-                    ad = 1;
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            ad = 1;
-        }
-        mainForm.Hide();
-        mainForm.Show();
-    }
-
-    private void MoveTextUp(object sender, EventArgs e)
-    {
-        theContent.SetBounds(0, theContent.Top- 70, 600, 6000);
-
-        rightPanel.Hide();
-        
-        rightPanel.Show();
-    }
-
-    private void MoveTextDown(object sender, EventArgs e)
-    {
-        theContent.SetBounds(0, theContent.Top+ 70, 600, 6000);
-        
-        rightPanel.Hide();
-        
-        rightPanel.Show();
-    }
-
-    private void AddList()
-    {
-        OpenRecipesFile(null, null);
-
-        Button neew = new Button();
-        neew.Text = "Make Recipe";
-        neew.SetBounds(0, 0, 86, 20);
-        neew.Click += new EventHandler(NewRecipe);
-
-        leftPanel.Controls.Add(neew);
-
-        selectRecipe.SetBounds(0, 70, 80, 20);
-        selectRecipe.Text = "Select Recipe";
-        selectRecipe.Click += new EventHandler(DisplayRecipe);
-        
-        leftPanel.Controls.Add(selectRecipe);
-
-        recipeList.SetBounds(0, 100, 250, 500);
-
-        for (int i = 0; i &lt; recipes.Count; i++)
-        {
-            recipeList.Items.Add(recipes[i].key);
-        }
-
-        leftPanel.Controls.Add(recipeList);
-        
-        recipeList.Click += new EventHandler(DisplayRecipe);
-        recipeList.ScrollAlwaysVisible = true;
-
-        recipeList.SetBounds(0, 100, 200, 500);
-        leftPanel.AutoScroll = true;
-    }
-
-    private void OpenRecipesFile(object sender, EventArgs e)
-    {
-        recipes = serializer.Deserialize();
-    }
-
-    private void NewRecipe(object sender, EventArgs e)
-    {
-        rightPanel.Controls.Clear();
-
-        Label title = new Label();
-        title.Text = "Title of recipe";
-        title.BackColor = Color.Transparent;
-        title.SetBounds(0, 0, 180, 25);
-
-        rightPanel.Controls.Add(title);
-
-        tb1.SetBounds(0, 25, 600, 40);
-
-        Label cont = new Label();
-        cont.Text = "Recipe";
-        cont.BackColor = Color.Transparent;
-        cont.SetBounds(0, 65, 80, 25);
-        
-        rightPanel.Controls.Add(cont);
-
-        tb.Multiline = true;
-        tb.SetBounds(0, 90, 600, 300);
-        tb.Text = "";
-        tb1.Text = "";
-
-        tb1.ForeColor = Color.White;
-        tb.ForeColor = Color.White;
-        tb1.BackColor = Color.Black;
-        tb.BackColor = Color.Black;
-
-        Button saveOrUpdate = new Button();
-        saveOrUpdate.SetBounds(300, 420, 50, 20);
-        saveOrUpdate.Text = "SAVE";
-        if (sender != null)
-        {
-            if (((Button)sender).Text.Equals("Edit"))
-            {
-                saveOrUpdate.Text = "EDIT";
-                saveOrUpdate.Click += new EventHandler(EditDatabase);
-            }
-            else
-            {
-                saveOrUpdate.Click += new EventHandler(UpdateDatabase);
-            }
-        }
-        
-        rightPanel.Controls.Add(saveOrUpdate);
-        
-        rightPanel.Controls.Add(tb1);
-        
-        rightPanel.Controls.Add(tb);
-    }
-
-    private void EditDatabase(object sender, EventArgs e)
-    {
-        recipeList.Items.Clear();
-
-        if (sender != null)
-        {
-            recipes[selectedIndex].key = tb1.Text;
-            recipes[selectedIndex].value = tb.Text;
-        }
-
-        for (int i = 0; i &lt; recipes.Count; i++)
-        {
-            recipeList.Items.Add(recipes[i].key);
-        }
-
-        serializer.Serialize(recipes);
-
-        mainForm.Hide();
-
-        mainForm.Show();
-    }
-
-    private void UpdateDatabase(object sender, EventArgs e)
-    {
-        recipeList.Items.Clear();
-        
-        if (sender != null)
-        {
-            recipes.Add(new Item(tb1.Text, tb.Text));
-        }
-
-        for (int i = 0; i &lt; recipes.Count; i++)
-        {
-            recipeList.Items.Add(recipes[i].key);
-        }
-
-        serializer.Serialize(recipes);
-        
-        mainForm.Hide();
-        
-        mainForm.Show();
-    }
-
-    private void DisplayRecipe(object sender, EventArgs e)
-    {
-
-        selectedIndex = recipeList.SelectedIndex;
-
-
-        if (sender == selectRecipe)
-        {
-            selectedIndex = -1;
-            recipeList.SelectedIndex = -1;
-        }
-
-
-        rightPanel.Controls.Clear();
-
-        AddButtons();
-        
-        rightPanel.Controls.Add(DisplaySelectedText());
-    }
-
-    private Label DisplaySelectedText()
-    {
-        if (selectedIndex != -1)
-        {
-            
-            Label dynamicTextBox = new Label();
-
-            dynamicTextBox.BackColor = Color.Transparent;
-            
-            dynamicTextBox.ForeColor = Color.Black;
-            
-            dynamicTextBox.Font = new Font("Georgia", 16);
-            
-            dynamicTextBox.SetBounds(0, 0, 600, 6000);
-
-            
-            if (selectedIndex &gt; -1 &amp;&amp; selectedIndex &lt; recipeList.Items.Count)
-            {
-                dynamicTextBox.Text = recipeList.Items[selectedIndex] + "\n\n" + recipes[selectedIndex].value;
-            }
-
-            
-            theContent = dynamicTextBox;
-
-            return dynamicTextBox;
-
-        }
-        else
-        {
-            Label dynamicTextBox = new Label();
-
-            dynamicTextBox.BackColor = Color.Transparent;
-
-            dynamicTextBox.ForeColor = Color.Black;
-
-            dynamicTextBox.Font = new Font("Georgia", 36);
-
-            dynamicTextBox.SetBounds(0, 0, 600, 6000);
-
-            dynamicTextBox.Text = "Select Recipe From Left Side";
-            
-            theContent = dynamicTextBox;
-
-            Panel selectRecipePanel = new Panel();
-
-            selectRecipePanel.SetBounds(100, 100, 400, 400);
-
-            Size size = new Size(400, 400);
-
-            selectRecipePanel.BackgroundImage = Image.FromFile(@"splash.jpg");
-            
-            Bitmap bmp = new Bitmap(selectRecipePanel.BackgroundImage, size);
-            
-            selectRecipePanel.BackgroundImage = bmp;
-
-            rightPanel.Controls.Add(selectRecipePanel);
-            
-            return theContent;
-        }
-    }
-
-    public static void Main()
-    {
-        RecipeBook recipeBook = new RecipeBook();
-        
-        recipeBook.splashForm.Show();
-        
-        new System.Threading.ManualResetEvent(false).WaitOne(1250);
-        
-        recipeBook.splashForm.Close();
-
-        recipeBook.ShowBook();
-        
-        recipeBook.mainForm.Show();
-        
-        Application.Run(recipeBook.mainForm);
-    }
-}</value>
-  </Item>
-  <Item>
-    <key>afdssad</key>
-    <value>sadf</value>
-  </Item>
-  <Item>
     <key>afds</key>
     <value> fadsafds</value>
   </Item>
   <Item>
-    <key>1abc</key>
-    <value>eqwsadfsdfasadf
-sadf
-sadf
-sdfa
-sdfa
-fs
-da</value>
-  </Item>
-  <Item>
     <key>Kale soup (caldo verde)</key>
-    <value>One of my earliest food memories is this Portuguese soup, which is also called caldo verde because of its green color. My mom always made it for me when I was growing up. I’ve experienced many versions of this dish and enjoyed it at plenty of Portuguese feast-day celebrations. My recipe for it has evolved over time, particularly after some recent trips to Portugal—I even made it for Top Chef contestants last season—but I often think of my mom’s recipe. It’s a simple and awesome dish I cook at least once a week. (Photo via Splendid Table)</value>
+    <value>One of my earliest food memories is this Portuguese soup, which is also called caldo verde because of its green color. My mom always made it for me when I was growing up. I�ve experienced many versions of this dish and enjoyed it at plenty of Portuguese feast-day celebrations. My recipe for it has evolved over time, particularly after some recent trips to Portugal�I even made it for Top Chef contestants last season�but I often think of my mom�s recipe. It�s a simple and awesome dish I cook at least once a week. (Photo via Splendid Table)</value>
   </Item>
   <Item>
     <key>Quail Milton</key>
-    <value>I can truly say that this dish made my career. When opening Emeril’s, it was a huge challenge getting the appropriate permits. I had an appointment at City Hall to see the councilman in my district, Milton, and got word he was a fan of quail. So, I cooked up this dish of stuffed quail with mushrooms, Andouille, and a Port wine sauce, and walked into his office with it. Needless to say, it got me what I needed. I still enjoy recreating this dish. It’s a combination of flavors that always come together beautifully. (Photo: fleurdelicious-nola.com)</value>
+    <value>I can truly say that this dish made my career. When opening Emeril�s, it was a huge challenge getting the appropriate permits. I had an appointment at City Hall to see the councilman in my district, Milton, and got word he was a fan of quail. So, I cooked up this dish of stuffed quail with mushrooms, Andouille, and a Port wine sauce, and walked into his office with it. Needless to say, it got me what I needed. I still enjoy recreating this dish. It�s a combination of flavors that always come together beautifully. (Photo: fleurdelicious-nola.com)</value>
   </Item>
   <Item>
     <key>asdf sadsadf</key>
@@ -511,5 +44,157 @@ da</value>
   <Item>
     <key>11212</key>
     <value>adfs</value>
+  </Item>
+  <Item>
+    <key>src</key>
+    <value>WELLINGTON - Peter Jackson's "Lord Of The Rings" and "Hobbit" series have proved to be as precious to New Zealand's economy as any magical ring as millions flock to the country for a glimpse of Middle Earth, making tourism the main driver of growth.
+For years, coffers have been supplemented mainly by booming sales of dairy products from milk to infant formula.
+But the sector is now struggling as oversupply and waning demand from key market China has seen the clamour for "white gold" dry up, fuelling fears the country was too reliant on one product.
+
+But with breathtaking shots of sweeping landscapes and majestic mountains, the multiple Oscar-winning blockbusters shone the Hollywood spotlight on the country that has seen visitor numbers swell since the first film was released in 2001.
+At its peak, New Zealand's dairy industry shipped about NZ$17 billion ($12.1 billion) of dairy goods a year, accounting for almost a third of national exports.
+Yet while that declined to NZ$12.2 billion in 2015/16, overall economic growth remains a healthy 3.6 percent, which the government says is the third best in the developed world.
+And one reason for that is the slack has been taken up by the tourist industry, which Prime Minister John Key said was now helping underpin the national economy.
+"Exceptional growth in the sector has generated around 6,600 new tourism jobs in the year to March 2016, and the industry now accounts for 20.7 percent of export earnings," Key said this month.
+Official data shows international tourists pumped NZ$14.5 billion into the economy last year and visitor numbers, currently 3.4 million, were set to double over the next seven years.
+Tourism New Zealand (TNZ) chief executive Kevin Bowler said the growth had been phenomenal, thanks largely to the way the industry had leveraged the popularity of New Zealand's film sector.
+"Extremely successful Middle Earth campaigns and a deep focus on digital media helped drive significant growth in visitor numbers," he said.
+For years, New Zealand's govt coffers have been supplemented mainly by booming sales of dairy products from milk to infant formula © William West (AFP/File)
+
+For years, New Zealand's govt coffers have been supplemented mainly by booming sales of dairy products from milk to infant formula © William West (AFP/File) (© William West | AFP)
+
+Wellywood game changer
+The bulk of movie fans visiting New Zealand are attracted by Jackson's two Middle Earth trilogies "Rings" and "Hobbit", which have been described as marathon advertisements for the country's rugged charms.
+A survey showed 18 percent of international tourists last year cited "The Hobbit" as the reason they considered a trip to New Zealand.
+Even Air New Zealand has got in on the act, employing Jackson to film a special Lord Of The Rings-themed safety video in 2012.
+Almost 30 percent visited a Hobbit-related attraction during their stay, including Wellington's Weta effects workshop or touring film locations.
+TNZ is also using New Zealand-made films to promote tourism, with recent examples including campaigns around the children's movie "Pete's Dragon" and the upcoming science fiction feature "Ghost in the Shell".
+The capital, which styles itself "Wellywood", has been among the chief beneficiaries of the film-related tourist surge kicked off by "Lord of the Rings".
+Wellington Regional Economic Development Agency spokesman Aaron Alexander said the city received global exposure from film premieres attended by stars of the movies and tens of thousands of enthusiastic fans.
+"Middle Earth's been fantastic for New Zealand and Wellington, putting us on the map for a whole new audience in a big way," he said.
+City officials are so keen on film tourism that they have committed NZ$150 million to a movie museum and conference centre, due to open in 2019.
+The museum -- a joint venture involving local council, Jackson and his movie industry associates -- will house the director's extensive movie memorabilia collection.
+"It's a dream product to take to market, it will be a world-class facility and the team at Weta have a proven track record," Alexander said.
+"It's got the potential to be a game-changer in terms of triggering the decision to include Wellington on your itinerary."
+While exhibits at the museum will be updated to reflect new movies being made in New Zealand, Alexander said there was every chance tourists' fascination with Jackson's Middle Earth epics would endure.
+"After all, people are still doing 'Sound of Music' tours in Salzburg 50 years down the track," he said.</value>
+  </Item>
+  <Item>
+    <key>3</key>
+    <value>Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
+    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
+hello
+world! ~ x
+
+Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
+    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
+hello
+world! ~ x
+
+Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
+    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
+hello
+world! ~ x
+Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
+    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
+hello
+world! ~ x
+
+Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
+    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
+hello
+world! ~ x
+
+Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
+    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
+hello
+world! ~ x
+Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
+    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
+hello
+world! ~ x
+
+Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
+    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
+hello
+world! ~ x
+
+Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
+    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
+hello
+world! ~ x</value>
+  </Item>
+  <Item>
+    <key>2</key>
+    <value>Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
+This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
+
+
+Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
+What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
+Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
+
+1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
+hello
+world! ~ x
+
+1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
+Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
+hello
+world! ~ x
+</value>
+  </Item>
+  <Item>
+    <key>sdfaasdf22</key>
+    <value>fasdsdaffds</value>
   </Item>
 </ArrayOfItem>
