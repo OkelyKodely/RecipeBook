@@ -6,6 +6,8 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 using System.Text;
+using System.Drawing.Printing;
+using System.Runtime.InteropServices;
 
 public class RecipeBook
 {
@@ -124,11 +126,105 @@ public class RecipeBook
         rightPanel.Controls.Add(editButton);
 
 
+        Button printDocumentButton = new Button();
+        printDocumentButton.SetBounds(600, 20, 60, 30);
+        printDocumentButton.Text = "Print";
+        printDocumentButton.Click += new EventHandler(PrintDoc);
+
+        rightPanel.Controls.Add(printDocumentButton);
+
+
+        Button publishButton = new Button();
+        publishButton.SetBounds(0, 300, 160, 30);
+        publishButton.Text = "Publish PDF Recipe Book";
+        publishButton.Click += new EventHandler(PrintDocAll);
+
+        leftPanel.Controls.Add(publishButton);
+
+        
         mainForm.Hide();
 
         mainForm.Show();
     }
 
+    [DllImport("winspool.drv",
+               CharSet = CharSet.Auto,
+               SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    public static extern Boolean SetDefaultPrinter(String name);
+
+    public void PrintDoc(object sender, EventArgs e)
+    {
+        stringToPrint = recipes[selectedIndex].value;
+
+        PrintDocument pd = new PrintDocument();
+
+        pd.PrintPage += new PrintPageEventHandler(printDocument_PrintPage);
+
+        SetDefaultPrinter("Microsoft Print to PDF");
+        
+        PrintDialog MyPrintDialog = new PrintDialog();
+
+        if (MyPrintDialog.ShowDialog() == DialogResult.OK)
+        {
+            pd.Print();
+        }
+    }
+
+    private string stringToPrint = "";
+
+    public void PrintDocAll(object sender, EventArgs e)
+    {
+        stringToPrint = "Recipe Book" + Environment.NewLine + "___________" + Environment.NewLine;
+        
+        for (int i = 0; i < recipes.Count; i++)
+        {
+            if (i < recipes.Count - 1)
+            {
+                stringToPrint += recipes[i].key + Environment.NewLine + Environment.NewLine + recipes[i].value + Environment.NewLine + Environment.NewLine;
+            }
+            else if (i == recipes.Count - 1)
+            {
+                stringToPrint += recipes[i].key + Environment.NewLine + Environment.NewLine + recipes[i].value;
+            }
+        }
+
+        PrintDocument pd = new PrintDocument();
+
+        pd.PrintPage += new PrintPageEventHandler(printDocument_PrintPage);
+
+        SetDefaultPrinter("Microsoft Print to PDF");
+
+        PrintDialog MyPrintDialog = new PrintDialog();
+
+        if (MyPrintDialog.ShowDialog() == DialogResult.OK)
+        {
+            pd.Print();
+        }
+    }
+
+    private void printDocument_PrintPage(object sender, PrintPageEventArgs e)
+    {
+        Font font = new Font("Arial", 12);
+        int charactersOnPage = 0;
+        int linesPerPage = 0;
+        // Sets the value of charactersOnPage to the number of characters 
+        // of stringToPrint that will fit within the bounds of the page.
+        e.Graphics.MeasureString(stringToPrint, font,
+            e.MarginBounds.Size, StringFormat.GenericTypographic,
+            out charactersOnPage, out linesPerPage);
+
+        // Draws the string within the bounds of the page
+        e.Graphics.DrawString(stringToPrint, font, Brushes.Black,
+            e.MarginBounds, StringFormat.GenericTypographic);
+
+        // Remove the portion of the string that has been printed.
+        stringToPrint = stringToPrint.Substring(charactersOnPage);
+
+        // Check to see if more pages are to be printed.
+        e.HasMorePages = (stringToPrint.Length > 0);
+    }
+    
     private void EditCurrentRecipe(object sender, EventArgs e)
     {
 
@@ -409,6 +505,8 @@ public class RecipeBook
 
     public static void Main()
     {
+        Application.EnableVisualStyles();
+
         RecipeBook recipeBook = new RecipeBook();
 
         recipeBook.splashForm.Show();
