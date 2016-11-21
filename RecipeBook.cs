@@ -7,11 +7,15 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Text;
 using System.Drawing.Printing;
-using System.Runtime.InteropServices;
+using Workaholic.RTFEditor;
 
 public class RecipeBook
 {
     private int selectedIndex = -1;
+
+    private string category = "";
+
+    private Button neew = new Button();
 
     private Form mainForm = new Form();
 
@@ -23,7 +27,11 @@ public class RecipeBook
 
     private TextBox tb1 = new TextBox();
 
-    private TextBox tb = new TextBox();
+    private RTFEditor tb = new RTFEditor();
+
+    private ComboBox tb2 = new ComboBox();
+
+    private TextBox author = new TextBox();
 
     private LList recipes = new LList();
 
@@ -38,6 +46,12 @@ public class RecipeBook
     private Form splashForm = new Form();
 
     private Label selectRecipe = new Label();
+
+    private TextBox searchBox = new TextBox();
+
+    private Button searchMe = new Button();
+
+    private string stringToPrint = "";
 
     public RecipeBook()
     {
@@ -69,7 +83,7 @@ public class RecipeBook
         splashForm.Controls.Add(splashPanel);
     }
 
-    public void ShowBook()
+    public void ShowMyBook()
     {
         mainForm.SetBounds(0, 0, 1000, 600);
 
@@ -84,8 +98,6 @@ public class RecipeBook
         leftPanel.SetBounds(0, 0, 250, 600);
         rightPanel.SetBounds(250, 0, 750, 600);
 
-        mainForm.Icon = new Icon("block.ico");
-
         AddList();
 
         rightPanel.Controls.Clear();
@@ -93,7 +105,191 @@ public class RecipeBook
 
         AddContentViewBg();
 
+        AddSearch();
+
         AddButtons();
+
+        tb.MenuVisible = false;
+    }
+
+    private void AddSearch()
+    {
+
+        searchBox.SetBounds(0, 40, 120, 40);
+
+        searchMe.SetBounds(130, 40, 80, 40);
+
+        searchBox.BackColor = Color.Cyan;
+        searchBox.ForeColor = Color.White;
+
+        searchMe.BackColor = Color.Violet;
+        searchMe.ForeColor = Color.Brown;
+
+        searchBox.Text = "";
+
+        searchBox.KeyPress += new KeyPressEventHandler(KeyPressASearch);
+
+        searchMe.Text = "Lookup";
+
+        searchMe.Click += new EventHandler(PerformASearch);
+
+        leftPanel.Controls.Add(searchBox);
+
+        leftPanel.Controls.Add(searchMe);
+
+    }
+
+    private void KeyPressASearch(object sender, KeyPressEventArgs e)
+    {
+        if (searchBox.Text.Length > 0 && e.KeyChar == (char)13)
+        {
+            PerformASearch(sender, e);
+        }
+    }
+
+    TreeView searchView = new TreeView();
+
+    private void PerformASearch(object sender, EventArgs e)
+    {
+        if (searchBox.Text.Length > 0)
+        {
+            rightPanel.Controls.Clear();
+
+            Label searchResults = new Label();
+            searchResults.Text = "Search Results For: " + searchBox.Text;
+            searchResults.ForeColor = Color.Black;
+            searchResults.BackColor = Color.CornflowerBlue;
+            searchResults.Font = new Font("Arial", 22, FontStyle.Underline);
+            searchResults.SetBounds(0, 0, 600, 40);
+
+            searchView.Nodes.Clear();
+
+            searchView.SetBounds(50, 90, 500, 400);
+            searchView.BackColor = Color.Chocolate;
+            searchView.ForeColor = Color.Cyan;
+
+            rightPanel.Controls.Add(searchResults);
+            rightPanel.Controls.Add(searchView);
+
+            for (int i = 0; i < recipes.Count; i++)
+            {
+                //MessageBox.Show(recipes[i].value + " : " + searchBox.Text);
+                if (recipes[i].key.Contains(searchBox.Text))
+                {
+                    new System.Threading.ManualResetEvent(false).WaitOne(250);
+
+                    TreeNode key = new TreeNode(recipes[i].key);
+                    key.BackColor = Color.Yellow;
+                    
+                    TreeNode value = new TreeNode(recipes[i].value);
+
+                    TreeNode category = new TreeNode(recipes[i].cat);
+
+                    TreeNode author = new TreeNode(recipes[i].author);
+
+                    TreeNode[] treeNodeArray = new TreeNode[] { key, value, category, author };
+
+                    TreeNode treeNode = new TreeNode(key.Text, treeNodeArray);
+
+                    searchView.Nodes.Add(treeNode);
+                }
+                if (recipes[i].value.Contains(searchBox.Text))
+                {
+                    new System.Threading.ManualResetEvent(false).WaitOne(250);
+
+                    TreeNode key = new TreeNode(recipes[i].key);
+
+                    string val = recipes[i].value;
+                    int inn = val.IndexOf(searchBox.Text);
+                    string theval1 = val.Substring(inn, val.Length-inn);
+                    string theval2 = val.Substring(0, inn);
+                    if (theval1.Length < 50 || theval2.Length < 50)
+                    {
+                        val = recipes[i].value;
+                    }
+                    else
+                    {
+                        string t1 = theval2.Substring(theval2.Length - 50, 50);
+                        string t2 = theval1.Substring(0, 50);
+                        val = t1 + t2;
+                        string tval = "{<{" + val.Substring(val.IndexOf(searchBox.Text), searchBox.Text.Length) + "}>}";
+                        string ts = val.Substring(0, val.IndexOf(searchBox.Text)) + tval + val.Substring(val.IndexOf(searchBox.Text) + searchBox.Text.Length, val.Length - val.IndexOf(searchBox.Text) - searchBox.Text.Length);
+                        val = ts;
+                    }
+                    TreeNode value = new TreeNode(val);
+                    value.BackColor = Color.Yellow;
+
+                    TreeNode category = new TreeNode(recipes[i].cat);
+
+                    TreeNode author = new TreeNode(recipes[i].author);
+
+                    TreeNode[] treeNodeArray = new TreeNode[] { key, value, category, author };
+
+                    TreeNode treeNode = new TreeNode(key.Text, treeNodeArray);
+
+                    searchView.Nodes.Add(treeNode);
+                }
+                if (recipes[i].cat.Contains(searchBox.Text))
+                {
+                    new System.Threading.ManualResetEvent(false).WaitOne(250);
+
+                    TreeNode key = new TreeNode(recipes[i].key);
+
+                    TreeNode value = new TreeNode(recipes[i].value);
+
+                    TreeNode category = new TreeNode(recipes[i].cat);
+                    category.BackColor = Color.Yellow;
+
+                    TreeNode author = new TreeNode(recipes[i].author);
+
+                    TreeNode[] treeNodeArray = new TreeNode[] { key, value, category, author };
+
+                    TreeNode treeNode = new TreeNode(key.Text, treeNodeArray);
+
+                    searchView.Nodes.Add(treeNode);
+                }
+                if (recipes[i].author.Contains(searchBox.Text))
+                {
+                    new System.Threading.ManualResetEvent(false).WaitOne(250);
+
+                    TreeNode key = new TreeNode(recipes[i].key);
+
+                    TreeNode value = new TreeNode(recipes[i].value);
+
+                    TreeNode category = new TreeNode(recipes[i].cat);
+
+                    TreeNode author = new TreeNode(recipes[i].author);
+                    author.BackColor = Color.Yellow;
+
+                    TreeNode[] treeNodeArray = new TreeNode[] { key, value, category, author };
+
+                    TreeNode treeNode = new TreeNode(key.Text, treeNodeArray);
+
+                    searchView.Nodes.Add(treeNode);
+                }
+
+                searchView.ExpandAll();
+                searchView.Scrollable = true;
+                searchView.NodeMouseClick += new TreeNodeMouseClickEventHandler(OpenNode);
+            }
+        }
+    }
+
+    private void OpenNode(object sender, TreeNodeMouseClickEventArgs e)
+    {
+        for (int i = 0; i < recipes.Count; i++)
+        {
+            if (recipes[i].key.Equals(e.Node.Text))
+            {
+                selectedIndex = i;
+                rightPanel.Controls.Clear();
+
+                AddButtons();
+
+                rightPanel.Controls.Add(DisplaySelectedText());
+                return;
+            }
+        }
     }
 
     private void AddContentViewBg()
@@ -108,50 +304,49 @@ public class RecipeBook
     {
         upButton.Text = "Up";
         upButton.SetBounds(604, 170, 44, 24);
-        upButton.Click += new EventHandler(MoveTextDown);
+        upButton.ForeColor = Color.Red;
+        upButton.BackColor = Color.Wheat;
+        upButton.MouseDown += new MouseEventHandler(MoveTextDown);
 
         rightPanel.Controls.Add(upButton);
 
         downButton.Text = "Down";
         downButton.SetBounds(650, 170, 44, 24);
-        downButton.Click += new EventHandler(MoveTextUp);
+        downButton.ForeColor = Color.Red;
+        downButton.BackColor = Color.Wheat;
+        downButton.MouseDown += new MouseEventHandler(MoveTextUp);
 
         rightPanel.Controls.Add(downButton);
 
         Button editButton = new Button();
         editButton.SetBounds(600, 300, 80, 40);
-        editButton.Text = "Edit";
+        editButton.Text = "Open";
+        editButton.ForeColor = Color.SlateGray;
+        editButton.BackColor = Color.White;
         editButton.Click += new EventHandler(EditCurrentRecipe);
 
         rightPanel.Controls.Add(editButton);
 
 
         Button printDocumentButton = new Button();
-        printDocumentButton.SetBounds(600, 20, 60, 30);
-        printDocumentButton.Text = "Print";
+        printDocumentButton.SetBounds(600, 20, 120, 30);
+        printDocumentButton.Text = "Print THIS.";
         printDocumentButton.Click += new EventHandler(PrintDoc);
 
         rightPanel.Controls.Add(printDocumentButton);
 
 
         Button publishButton = new Button();
-        publishButton.SetBounds(0, 300, 160, 30);
-        publishButton.Text = "Publish PDF Recipe Book";
+        publishButton.SetBounds(50, 510, 130, 20);
+        publishButton.Text = "Print Everything";
+        publishButton.ForeColor = Color.Blue;
         publishButton.Click += new EventHandler(PrintDocAll);
 
         leftPanel.Controls.Add(publishButton);
 
         
-        mainForm.Hide();
-
-        mainForm.Show();
+        mainForm.Update();
     }
-
-    [DllImport("winspool.drv",
-               CharSet = CharSet.Auto,
-               SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    public static extern Boolean SetDefaultPrinter(String name);
 
     public void PrintDoc(object sender, EventArgs e)
     {
@@ -161,8 +356,6 @@ public class RecipeBook
 
         pd.PrintPage += new PrintPageEventHandler(printDocument_PrintPage);
 
-        SetDefaultPrinter("Microsoft Print to PDF");
-        
         PrintDialog MyPrintDialog = new PrintDialog();
 
         if (MyPrintDialog.ShowDialog() == DialogResult.OK)
@@ -170,8 +363,6 @@ public class RecipeBook
             pd.Print();
         }
     }
-
-    private string stringToPrint = "";
 
     public void PrintDocAll(object sender, EventArgs e)
     {
@@ -193,8 +384,6 @@ public class RecipeBook
 
         pd.PrintPage += new PrintPageEventHandler(printDocument_PrintPage);
 
-        SetDefaultPrinter("Microsoft Print to PDF");
-
         PrintDialog MyPrintDialog = new PrintDialog();
 
         if (MyPrintDialog.ShowDialog() == DialogResult.OK)
@@ -208,31 +397,28 @@ public class RecipeBook
         Font font = new Font("Arial", 12);
         int charactersOnPage = 0;
         int linesPerPage = 0;
-        // Sets the value of charactersOnPage to the number of characters 
-        // of stringToPrint that will fit within the bounds of the page.
+
         e.Graphics.MeasureString(stringToPrint, font,
             e.MarginBounds.Size, StringFormat.GenericTypographic,
             out charactersOnPage, out linesPerPage);
 
-        // Draws the string within the bounds of the page
         e.Graphics.DrawString(stringToPrint, font, Brushes.Black,
             e.MarginBounds, StringFormat.GenericTypographic);
 
-        // Remove the portion of the string that has been printed.
         stringToPrint = stringToPrint.Substring(charactersOnPage);
 
-        // Check to see if more pages are to be printed.
         e.HasMorePages = (stringToPrint.Length > 0);
     }
     
     private void EditCurrentRecipe(object sender, EventArgs e)
     {
-
         NewRecipe(sender, null);
 
         tb1.Text = recipes[selectedIndex].key;
 
-        tb.Text = recipes[selectedIndex].value;
+        tb.DocumentText = recipes[selectedIndex].value;
+
+        tb.DocumentRtf = recipes[selectedIndex].src;
 
     }
 
@@ -248,41 +434,36 @@ public class RecipeBook
 
         DisplayRecipe(null, null);
 
-        mainForm.Hide();
-        mainForm.Show();
+        mainForm.Update();
     }
 
     private void MoveTextUp(object sender, EventArgs e)
     {
-        theContent.SetBounds(0, theContent.Top - 70, 600, 6000);
+        theContent.SetBounds(0, theContent.Top - 10, 600, 6000);
 
-        rightPanel.Hide();
-
-        rightPanel.Show();
+        rightPanel.Update();
     }
 
     private void MoveTextDown(object sender, EventArgs e)
     {
-        theContent.SetBounds(0, theContent.Top + 70, 600, 6000);
+        theContent.SetBounds(0, theContent.Top + 10, 600, 6000);
 
-        rightPanel.Hide();
-
-        rightPanel.Show();
+        rightPanel.Update();
     }
 
     private void AddList()
     {
         OpenRecipesFile(null, null);
 
-        Button neew = new Button();
         neew.Text = "Make Recipe";
         neew.SetBounds(0, 0, 86, 20);
         neew.Click += new EventHandler(NewRecipe);
 
         leftPanel.Controls.Add(neew);
 
-        selectRecipe.SetBounds(0, 70, 80, 20);
+        selectRecipe.SetBounds(0, 80, 80, 20);
         selectRecipe.Text = "Select Recipe";
+        selectRecipe.Font = new Font("Arial", 8, FontStyle.Underline);
         selectRecipe.Click += new EventHandler(DisplayRecipe);
 
         leftPanel.Controls.Add(selectRecipe);
@@ -308,7 +489,42 @@ public class RecipeBook
         for (int i = 0; i < recipes.Count; i++)
         {
             recipes[i].value = recipes[i].value.Replace("\n", Environment.NewLine);
+            recipes[i].src = recipes[i].src.Replace("\n", Environment.NewLine);
         }
+        tb2.Items.Clear();
+        for (int i = 0; i < recipes.Count; i++)
+        {
+            if (i + 1 >= recipes.Count && i == 0)
+            {
+                tb2.Items.Add(recipes[i].cat);
+            }
+            else if(i == 0)
+            {
+                tb2.Items.Add(recipes[i].cat);
+            }
+            else
+            {
+                bool same = false;
+                for (int j = 0; j < i; j++)
+                {
+                    if (recipes[j].cat.Equals(recipes[i].cat))
+                    {
+                        same = true;
+                    }
+                }
+                if (!same)
+                {
+                    tb2.Items.Add(recipes[i].cat);
+                }
+            }
+        }
+        tb2.SelectedIndexChanged += new EventHandler(NewCategory);
+    }
+
+    private void NewCategory(object sender, EventArgs e)
+    {
+        category = tb2.Items[tb2.SelectedIndex].ToString();
+        newcaty = false;
     }
 
     private void NewRecipe(object sender, EventArgs e)
@@ -331,22 +547,43 @@ public class RecipeBook
 
         rightPanel.Controls.Add(cont);
 
-        tb.Multiline = true;
-        tb.SetBounds(0, 90, 600, 300);
-        tb.Text = "";
+        tb.FilePanelVisible = false;
+        
+        tb.SetBounds(0, 90, 600, 350);
+        tb.DocumentText = "";
+        tb.DocumentRtf = "";
         tb1.Text = "";
 
-        tb1.ForeColor = Color.Gray;
-        tb.ForeColor = Color.Gray;
-        tb1.BackColor = Color.Azure;
-        tb.BackColor = Color.Aquamarine;
+        if ((sender).Equals(neew))
+        {
+            author.Text = "";
+        }
+
+        Label cat = new Label();
+        cat.Font = new Font("Arial", 10, FontStyle.Underline);
+        cat.Text = "Category";
+        cat.SetBounds(0, 45, 70, 20);
+        tb2.SetBounds(80, 45, 100, 20);
+        cat.BackColor = Color.Transparent;
+        cat.Click += new EventHandler(FormCategory);
+
+        Label authorr = new Label();
+        authorr.Text = "Author";
+        authorr.SetBounds(190, 45, 70, 20);
+        author.SetBounds(260, 45, 120, 20);
+        authorr.BackColor = Color.Transparent;
+
+        rightPanel.Controls.Add(authorr);
+        rightPanel.Controls.Add(cat);
+        rightPanel.Controls.Add(author);
+        rightPanel.Controls.Add(tb2);
 
         Button saveOrUpdate = new Button();
-        saveOrUpdate.SetBounds(300, 420, 50, 20);
+        saveOrUpdate.SetBounds(300, 450, 50, 20);
         saveOrUpdate.Text = "SAVE";
         if (sender != null)
         {
-            if (((Button)sender).Text.Equals("Edit"))
+            if (((Button)sender).Text.Equals("Open"))
             {
                 saveOrUpdate.Text = "EDIT";
                 saveOrUpdate.Click += new EventHandler(EditDatabase);
@@ -364,6 +601,40 @@ public class RecipeBook
         rightPanel.Controls.Add(tb);
     }
 
+    Form form = new Form();
+    TextBox neewcatt = new TextBox();
+    bool newcaty = false;
+    String newcateegorree = "";
+    private void FormCategory(object sender, EventArgs e)
+    {
+        form = new Form();
+        form.MaximizeBox = false;
+        form.FormBorderStyle = FormBorderStyle.FixedSingle; 
+        form.MinimizeBox = false;
+        form.SetBounds(0, 0, 240, 100);
+        form.Show();
+
+        Label newcat = new Label();
+        newcat.Text = "New Cat";
+        newcat.SetBounds(0, 0, 60, 20);
+        neewcatt.Text = "";
+        neewcatt.SetBounds(70, 0, 70, 20);
+        Button add = new Button();
+        add.Text = "Add";
+        add.SetBounds(0, 30, 50, 30);
+        add.Click += new EventHandler(FormTheCategory);
+        form.Controls.Add(newcat);
+        form.Controls.Add(neewcatt);
+        form.Controls.Add(add);
+    }
+
+    private void FormTheCategory(object sender, EventArgs e)
+    {
+        newcaty = true;
+        newcateegorree = neewcatt.Text;
+        form.Close();
+    }
+
     private void EditDatabase(object sender, EventArgs e)
     {
         recipeList.Items.Clear();
@@ -371,7 +642,19 @@ public class RecipeBook
         if (sender != null)
         {
             recipes[selectedIndex].key = tb1.Text;
-            recipes[selectedIndex].value = tb.Text;
+            recipes[selectedIndex].value = tb.DocumentText;
+            recipes[selectedIndex].src = tb.DocumentRtf;
+            recipes[selectedIndex].author = author.Text;
+            recipes[selectedIndex].cat = category;
+            if (newcaty)
+            {
+                tb2.Items.Add(newcateegorree);
+                recipes[selectedIndex].cat = newcateegorree;
+            }
+            else
+            {
+                newcaty = false;
+            }
         }
 
         for (int i = 0; i < recipes.Count; i++)
@@ -381,9 +664,7 @@ public class RecipeBook
 
         serializer.Serialize(recipes);
 
-        mainForm.Hide();
-
-        mainForm.Show();
+        mainForm.Update();
 
         recipeList.SelectedIndex = selectedIndex;
 
@@ -396,7 +677,16 @@ public class RecipeBook
 
         if (sender != null)
         {
-            recipes.Add(new Item(tb1.Text, tb.Text));
+            if (!newcaty)
+            {
+                recipes.Add(new Item(tb1.Text, tb.DocumentText, tb.DocumentRtf, author.Text, category));
+                newcaty = false;
+            }
+            else
+            {
+                tb2.Items.Add(newcateegorree);
+                recipes.Add(new Item(tb1.Text, tb.DocumentText, tb.DocumentRtf, author.Text, newcateegorree));
+            }
         }
 
         for (int i = 0; i < recipes.Count; i++)
@@ -406,11 +696,9 @@ public class RecipeBook
 
         serializer.Serialize(recipes);
 
-        mainForm.Hide();
+        mainForm.Update();
 
-        mainForm.Show();
-
-        selectedIndex = 0;// recipes.Count - 1;
+        selectedIndex = 0;
 
         recipeList.SelectedIndex = selectedIndex;
 
@@ -444,18 +732,30 @@ public class RecipeBook
 
             Label dynamicTextBox = new Label();
 
-            dynamicTextBox.BackColor = Color.Transparent;
+            dynamicTextBox.BackColor = Color.White;
+
+            dynamicTextBox.BorderStyle = BorderStyle.FixedSingle;
 
             dynamicTextBox.ForeColor = Color.Black;
 
-            dynamicTextBox.Font = new Font("Georgia", 16);
+            dynamicTextBox.Font = new Font("Times New Roman", 15);
 
-            dynamicTextBox.SetBounds(0, 0, 600, 6000);
+            dynamicTextBox.SetBounds(50, 0, 500, 6000);
 
 
             if (selectedIndex > -1 && selectedIndex < recipeList.Items.Count && selectedIndex < recipes.Count)
             {
-                dynamicTextBox.Text = recipeList.Items[selectedIndex] + "\n\n" + recipes[selectedIndex].value;
+                dynamicTextBox.Text = "Title: " + recipeList.Items[selectedIndex] + "\n\nCategory: " + recipes[selectedIndex].cat + "\n\nAuthor: " + recipes[selectedIndex].author + "\n\nRecipe: " + recipes[selectedIndex].value;
+                category = recipes[selectedIndex].cat;
+                for (int i = 0; i < tb2.Items.Count; i++)
+                {
+                    if (tb2.Items[i].ToString().Equals(recipes[selectedIndex].cat))
+                    {
+                        tb2.SelectedIndex = i;
+                    }
+                }
+
+                author.Text = recipes[selectedIndex].author;
             }
 
             Button delBtn = new Button();
@@ -475,21 +775,21 @@ public class RecipeBook
 
             dynamicTextBox.BackColor = Color.Transparent;
 
-            dynamicTextBox.ForeColor = Color.Black;
+            dynamicTextBox.ForeColor = Color.Red;
 
-            dynamicTextBox.Font = new Font("Georgia", 36);
+            dynamicTextBox.Font = new Font("Times New Roman", 24, FontStyle.Italic);
 
             dynamicTextBox.SetBounds(0, 0, 600, 6000);
 
-            dynamicTextBox.Text = "Select Recipe From Left Side";
+            dynamicTextBox.Text = "select Your Recipes from left";
 
             theContent = dynamicTextBox;
 
             Panel selectRecipePanel = new Panel();
 
-            selectRecipePanel.SetBounds(100, 100, 400, 400);
+            selectRecipePanel.SetBounds(0, 50, 600, 500);
 
-            Size size = new Size(400, 400);
+            Size size = new Size(600, 500);
 
             selectRecipePanel.BackgroundImage = Image.FromFile(@"splash.jpg");
 
@@ -503,10 +803,9 @@ public class RecipeBook
         }
     }
 
+    [STAThreadAttribute]
     public static void Main()
     {
-        Application.EnableVisualStyles();
-
         RecipeBook recipeBook = new RecipeBook();
 
         recipeBook.splashForm.Show();
@@ -515,8 +814,7 @@ public class RecipeBook
 
         recipeBook.splashForm.Close();
 
-        recipeBook.ShowBook();
-
+        recipeBook.ShowMyBook();
         recipeBook.mainForm.Show();
 
         Application.Run(recipeBook.mainForm);
