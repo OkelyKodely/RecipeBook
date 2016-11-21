@@ -1,200 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ArrayOfItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<ArrayOfItem xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Item>
-    <key>Sashimi</key>
-    <value>Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
-
-What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
-
-Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
-
-Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
-
-This recipe was featured as part of our no-cook story.
-Adapted from Wayne Nish
-Instructions
-
-    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.
-    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
-
-Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
-    
-
-hello
-
-world! ~
- x.</value>
+    <key>Ramen</key>
+    <author>RamenGuy</author>
+    <cat>
+	herrro
+    </cat>
+    <value>ramenssssstttafdsasffsdadsfa1</value>
+    <src>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\fs17 r\fs16 amenssssstttafdsasffsdadsfa1\fs17\par
+}
+</src>
   </Item>
   <Item>
-    <key>afds</key>
-    <value> fadsafds</value>
+    <key>afdfdas</key>
+    <author>
+	21afasfd
+    </author>
+    <cat>ewqrwqre</cat>
+    <value>vzxczxcv</value>
+    <src>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\fs17 v\fs16 zxczxcv\fs17\par
+}
+</src>
   </Item>
   <Item>
-    <key>Kale soup (caldo verde)</key>
-    <value>One of my earliest food memories is this Portuguese soup, which is also called caldo verde because of its green color. My mom always made it for me when I was growing up. I�ve experienced many versions of this dish and enjoyed it at plenty of Portuguese feast-day celebrations. My recipe for it has evolved over time, particularly after some recent trips to Portugal�I even made it for Top Chef contestants last season�but I often think of my mom�s recipe. It�s a simple and awesome dish I cook at least once a week. (Photo via Splendid Table)</value>
+    <key>afdfdas</key>
+    <author>
+	21afasfd
+    </author>
+    <cat>Benjamin</cat>
+    <value>vzxczxcvsafdfads</value>
+    <src>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\fs17 v\fs16 zxczxcvsafdfads\fs17\par
+}
+</src>
   </Item>
   <Item>
-    <key>Quail Milton</key>
-    <value>I can truly say that this dish made my career. When opening Emeril�s, it was a huge challenge getting the appropriate permits. I had an appointment at City Hall to see the councilman in my district, Milton, and got word he was a fan of quail. So, I cooked up this dish of stuffed quail with mushrooms, Andouille, and a Port wine sauce, and walked into his office with it. Needless to say, it got me what I needed. I still enjoy recreating this dish. It�s a combination of flavors that always come together beautifully. (Photo: fleurdelicious-nola.com)</value>
+    <key>afdfdas</key>
+    <author>
+	21afasfd
+    </author>
+    <cat>1ewqrwqre</cat>
+    <value>vzxczxcv</value>
+    <src>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\fs17 v\fs16 zxczxcv\fs17\par
+}
+</src>
   </Item>
   <Item>
-    <key>asdf sadsadf</key>
-    <value>dsfasdaf asd</value>
+    <key>afdfdas123</key>
+    <author>
+	21afasfd
+    </author>
+    <cat>qww</cat>
+    <value>vzxczxcv</value>
+    <src>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\fs17 v\fs16 zxczxcv\fs17\par
+}
+</src>
   </Item>
   <Item>
-    <key>11212</key>
-    <value>adfs</value>
+    <key>testcat</key>
+    <author>fdas</author>
+    <cat>ewqrwqre</cat>
+    <value>abcd</value>
+    <src>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\fs17 abcd\par
+}
+</src>
   </Item>
   <Item>
-    <key>src</key>
-    <value>WELLINGTON - Peter Jackson's "Lord Of The Rings" and "Hobbit" series have proved to be as precious to New Zealand's economy as any magical ring as millions flock to the country for a glimpse of Middle Earth, making tourism the main driver of growth.
-For years, coffers have been supplemented mainly by booming sales of dairy products from milk to infant formula.
-But the sector is now struggling as oversupply and waning demand from key market China has seen the clamour for "white gold" dry up, fuelling fears the country was too reliant on one product.
-
-But with breathtaking shots of sweeping landscapes and majestic mountains, the multiple Oscar-winning blockbusters shone the Hollywood spotlight on the country that has seen visitor numbers swell since the first film was released in 2001.
-At its peak, New Zealand's dairy industry shipped about NZ$17 billion ($12.1 billion) of dairy goods a year, accounting for almost a third of national exports.
-Yet while that declined to NZ$12.2 billion in 2015/16, overall economic growth remains a healthy 3.6 percent, which the government says is the third best in the developed world.
-And one reason for that is the slack has been taken up by the tourist industry, which Prime Minister John Key said was now helping underpin the national economy.
-"Exceptional growth in the sector has generated around 6,600 new tourism jobs in the year to March 2016, and the industry now accounts for 20.7 percent of export earnings," Key said this month.
-Official data shows international tourists pumped NZ$14.5 billion into the economy last year and visitor numbers, currently 3.4 million, were set to double over the next seven years.
-Tourism New Zealand (TNZ) chief executive Kevin Bowler said the growth had been phenomenal, thanks largely to the way the industry had leveraged the popularity of New Zealand's film sector.
-"Extremely successful Middle Earth campaigns and a deep focus on digital media helped drive significant growth in visitor numbers," he said.
-For years, New Zealand's govt coffers have been supplemented mainly by booming sales of dairy products from milk to infant formula © William West (AFP/File)
-
-For years, New Zealand's govt coffers have been supplemented mainly by booming sales of dairy products from milk to infant formula © William West (AFP/File) (© William West | AFP)
-
-Wellywood game changer
-The bulk of movie fans visiting New Zealand are attracted by Jackson's two Middle Earth trilogies "Rings" and "Hobbit", which have been described as marathon advertisements for the country's rugged charms.
-A survey showed 18 percent of international tourists last year cited "The Hobbit" as the reason they considered a trip to New Zealand.
-Even Air New Zealand has got in on the act, employing Jackson to film a special Lord Of The Rings-themed safety video in 2012.
-Almost 30 percent visited a Hobbit-related attraction during their stay, including Wellington's Weta effects workshop or touring film locations.
-TNZ is also using New Zealand-made films to promote tourism, with recent examples including campaigns around the children's movie "Pete's Dragon" and the upcoming science fiction feature "Ghost in the Shell".
-The capital, which styles itself "Wellywood", has been among the chief beneficiaries of the film-related tourist surge kicked off by "Lord of the Rings".
-Wellington Regional Economic Development Agency spokesman Aaron Alexander said the city received global exposure from film premieres attended by stars of the movies and tens of thousands of enthusiastic fans.
-"Middle Earth's been fantastic for New Zealand and Wellington, putting us on the map for a whole new audience in a big way," he said.
-City officials are so keen on film tourism that they have committed NZ$150 million to a movie museum and conference centre, due to open in 2019.
-The museum -- a joint venture involving local council, Jackson and his movie industry associates -- will house the director's extensive movie memorabilia collection.
-"It's a dream product to take to market, it will be a world-class facility and the team at Weta have a proven track record," Alexander said.
-"It's got the potential to be a game-changer in terms of triggering the decision to include Wellington on your itinerary."
-While exhibits at the museum will be updated to reflect new movies being made in New Zealand, Alexander said there was every chance tourists' fascination with Jackson's Middle Earth epics would endure.
-"After all, people are still doing 'Sound of Music' tours in Salzburg 50 years down the track," he said.</value>
+    <key>Baseball Steak</key>
+    <author>dc</author>
+    <cat>qwx</cat>
+    <value>yours trulym,</value>
+    <src>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\fs17 y\fs16 ours trulym,\fs17\par
+}
+</src>
   </Item>
   <Item>
-    <key>3</key>
-    <value>Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
-What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
-Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
-Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
-This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
-    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
-Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
-hello
-world! ~ x
-
-Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
-What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
-Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
-Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
-This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
-    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
-Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
-hello
-world! ~ x
-
-Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
-What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
-Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
-Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
-This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
-    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
-Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
-hello
-world! ~ x
-Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
-What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
-Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
-Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
-This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
-    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
-Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
-hello
-world! ~ x
-
-Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
-What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
-Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
-Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
-This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
-    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
-Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
-hello
-world! ~ x
-
-Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
-What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
-Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
-Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
-This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
-    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
-Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
-hello
-world! ~ x
-Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
-What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
-Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
-Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
-This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
-    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
-Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
-hello
-world! ~ x
-
-Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
-What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
-Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
-Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
-This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
-    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
-Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
-hello
-world! ~ x
-
-Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
-What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
-Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
-Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
-This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
-    1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
-Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
-hello
-world! ~ x</value>
+    <key>Regression Testing</key>
+    <author>nne</author>
+    <cat>qww</cat>
+    <value>aaasas12</value>
+    <src>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\fs17 aaasas\fs16 12\fs17\par
+}
+</src>
   </Item>
   <Item>
-    <key>2</key>
-    <value>Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
-What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
-Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
-Game plan: To maintain the quality of the fish, serve it on chilled plates and keep the sashimi in the refrigerator until you are ready to slice it.
-This recipe was featured as part of our no-cook story. Adapted from Wayne Nish Instructions
+    <key>Chocolate Souffle</key>
+    <author>dc</author>
+    <cat>
+	herrro
+    </cat>
+    <value>Ingredients
 
-
-Chef Wayne Nish celebrates high-quality, fresh fish with this sashimi preparation.
-What to buy: Sashimi is all about the fish; with so few ingredients it�s imperative to buy the best you can find. We made this with yellowfin tuna, though it would be equally good with salmon or hamachi. Buy your fish from a reputable source, and let your fishmonger know that you will be serving it raw so he or she gives you a top-quality piece.
-Regular soy sauce is fermented from 80 percent soybeans and 20 percent wheat. White soy sauce, or shiro-shoyu, is made from the opposite: 80 percent wheat and 20 percent soybeans. Then niboshi (tiny dried sardines), kombu (dried giant seaweed), and dried shiitake mushrooms are added to produce a more flavorful brew called shiro dashi, which can be found in Japanese and Asian markets or online. If shiro dashi is not readily available, just use a regular high-quality Japanese soy sauce.
-
-1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
-Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
-hello
-world! ~ x
-
-1Remove fish from the refrigerator and, using a sharp knife with a thin blade, slice very thinly. Divide slices of fish evenly among 8 plates.    2Drizzle each serving with about 1/4 teaspoon olive oil and 1/2 teaspoon soy sauce, adding more as desired. Sprinkle sesame seeds and chives over fish and serve immediately.
-Beverage pairing: Tozai Junmai Living Jewel Sake, Japan. Of course it�s natural to think of sake when eating sashimi. But sake does indeed have an ethereal delicateness that perfectly embellishes the creamy texture and pillowy softness of good fish.
-hello
-world! ~ x
-</value>
+    Unsalted butter, room temperature, for baking dish.
+    1/4 cup sugar, plus more for baking dish.
+    8 ounces semisweet chocolate, finely chopped, or semisweet chocolate chips (1 cup)
+    1 teaspoon pure vanilla extract.
+    3 large egg yolks, lightly beaten, plus 4 large egg whites.
+    1/4 teaspoon cream of tartar.</value>
+    <src>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}{\f1\fnil\fcharset2 Symbol;}}
+\viewkind4\uc1\pard{\pntext\f1\'B7\tab}{\*\pn\pnlvlblt\pnf1\pnindent0{\pntxtb\'B7}}\li540\ul\fs17 Ingredients\ulnone\par
+\pard\par
+\pard{\pntext\f1\'B7\tab}{\*\pn\pnlvlblt\pnf1\pnindent0{\pntxtb\'B7}}\fs20     Unsalted butter, room temperature, for baking dish.\par
+{\pntext\f1\'B7\tab}    1/4 cup sugar, plus more for baking dish.\par
+{\pntext\f1\'B7\tab}    8 ounces semisweet chocolate, finely chopped, or semisweet chocolate chips (1 cup)\par
+{\pntext\f1\'B7\tab}    1 teaspoon pure vanilla extract.\par
+{\pntext\f1\'B7\tab}    3 large egg yolks, lightly beaten, plus 4 large egg whites.\par
+{\pntext\f1\'B7\tab}    1/4 teaspoon cream of tartar.\fs17\par
+}
+</src>
   </Item>
   <Item>
-    <key>sdfaasdf22</key>
-    <value>fasdsdaffds</value>
+    <key>dry food</key>
+    <author>cd</author>
+    <cat>1ewqrwqre</cat>
+    <value>Preheat oven to 375°F. Generously butter soufflé dish and sprinkle with sugar, 
+knocking out excess. Melt chocolate in a metal bowl set over a saucepan of 
+barely simmering water, stirring occasionally until smooth. Remove bowl from heat and stir in yolks (mixture will stiffen).</value>
+    <src>{\rtf1\ansi\ansicpg1252\deff0\deflang1033{\fonttbl{\f0\fnil\fcharset0 Arial;}}
+\viewkind4\uc1\pard\fs17 Preheat oven to 375\'b0F. Generously butter souffl\'e9 dish and sprinkle with sugar, \par
+knocking out excess. Melt chocolate in a metal bowl set over a saucepan of \par
+barely simmering water, stirring occasionally until smooth. Remove bowl from heat and stir in yolks (mixture will stiffen).\par
+}
+</src>
   </Item>
 </ArrayOfItem>
